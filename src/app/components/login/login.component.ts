@@ -22,5 +22,6 @@ export class LoginComponent extends NbLoginComponent {
 
   onLogin(user: any) {
     this.userOutput = JSON.stringify(user, null, 4);
+    console.log(this.userOutput);
   }
 }
