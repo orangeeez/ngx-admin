@@ -311,6 +311,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+angular-telegram-login-widget
+MIT
+
 angular2-chartjs
 MIT
 Copyright (c) 2016-2017 Chen, Yi-Cyuan
