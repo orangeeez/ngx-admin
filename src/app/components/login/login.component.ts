@@ -10,8 +10,8 @@ export class LoginComponent extends NbLoginComponent {
   isLoad: boolean = false;
   isLoadError: boolean = false;
   userOutput = '';
-
   botName = 'lolka11bot';
+
   onLoad() {
     this.isLoad = true;
   }

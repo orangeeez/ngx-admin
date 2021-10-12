@@ -13,6 +13,10 @@ import {
 } from '@nebular/theme';
 import { LoginComponent } from '../components/login/login.component';
 import { AngularTelegramLoginWidgetModule } from 'angular-telegram-login-widget';
+import { RegisterComponent } from '../components/register/register.component';
+import { LogoutComponent } from '../components/logout/logout.component';
+import { ResetPasswordComponent } from '../components/reset-password/reset-password.component';
+import { RequestPasswordComponent } from '../components/request-password/request-password.component';
 
 
 @NgModule({
@@ -31,6 +35,10 @@ import { AngularTelegramLoginWidgetModule } from 'angular-telegram-login-widget'
   ],
   declarations: [
     LoginComponent,
+    RegisterComponent,
+    LogoutComponent,
+    ResetPasswordComponent,
+    RequestPasswordComponent,
   ],
 })
 export class NgxAuthModule {}
