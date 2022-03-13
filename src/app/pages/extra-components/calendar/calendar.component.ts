@@ -1,5 +1,5 @@
 import { animate, keyframes, query, stagger, state, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NbCalendarSize, NbDateService, NbMediaBreakpointsService, NbThemeService } from '@nebular/theme';
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
@@ -11,7 +11,7 @@ enum DatePickerState {
   SHOW_H = 'showH',
   HIDE_H = 'hideH',
   SHOW_V = 'showV',
-  HIDE_V = 'hideV'
+  HIDE_V = 'hideV',
 }
 @Component({
   selector: 'ngx-calendar',
@@ -21,28 +21,28 @@ enum DatePickerState {
   animations: [
     trigger('timePicker', [
       state('hideH', style({
-        transform: 'translateX(-100%)'
+        transform: 'translateX(-100%)',
       })),
       state('hideV', style({
-        transform: 'translateY(-100%)'
+        transform: 'translateY(-100%)',
       })),
       transition('hideH => showH',
         animate('200ms', keyframes([
           style({transform: 'translateX(-100%)'}),
-          style({transform: 'translateX(0%)'})
-        ])
+          style({transform: 'translateX(0%)'}),
+        ]),
       )),
       transition('hideV => showV',
         animate('200ms', keyframes([
           style({transform: 'translateY(-100%)'}),
-          style({transform: 'translateY(0%)'})
-        ])
-      ))
+          style({transform: 'translateY(0%)'}),
+        ]),
+      )),
     ]),
-  ]
+  ],
 })
 
-export class CalendarComponent {
+export class CalendarComponent implements OnInit {
   private destroy$: Subject<void> = new Subject<void>();
   private _timePickerState: DatePickerState;
   size: NbCalendarSize;
@@ -51,9 +51,9 @@ export class CalendarComponent {
   dayCellComponent = DayCellComponent;
 
   constructor(
-    protected dateService: NbDateService<Date>,
-    private breakpointService: NbMediaBreakpointsService,
-    private themeService: NbThemeService,) {
+      protected dateService: NbDateService<Date>,
+      private breakpointService: NbMediaBreakpointsService,
+      private themeService: NbThemeService) {
     this.size = NbCalendarSize.LARGE;
   }
 
@@ -64,9 +64,9 @@ export class CalendarComponent {
   }
 
   set timePickerState(value: string) {
-    this._timePickerState = value === DatePickerState.HIDE 
+    this._timePickerState = value === DatePickerState.HIDE
       ? DatePickerState.HIDE
-      : DatePickerState.SHOW
+      : DatePickerState.SHOW;
   }
 
   ngOnInit() {
@@ -77,7 +77,7 @@ export class CalendarComponent {
         takeUntil(this.destroy$),
       )
       .subscribe((isLessThanMd: boolean) => {
-        this.isTimePickerHorizontal = !isLessThanMd
+        this.isTimePickerHorizontal = !isLessThanMd;
         this.timePickerState = DatePickerState.HIDE;
       });
   }

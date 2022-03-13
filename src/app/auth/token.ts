@@ -1,4 +1,4 @@
-import { NbAuthJWTToken } from "@nebular/auth";
+import { NbAuthJWTToken } from '@nebular/auth';
 
 export class AuthJWTToken extends NbAuthJWTToken {
   protected accessTokenPayload: any;

@@ -108,8 +108,8 @@ export const NB_CORE_PROVIDERS = [
         name: 'email',
         token: {
           class: NbAuthJWTToken,
-          key: 'token'
-        }
+          key: 'token',
+        },
       }),
     ],
     forms: {

@@ -43,8 +43,8 @@ import { AuthGuard } from './auth-guard.service';
   ],
   bootstrap: [AppComponent],
   providers: [
-    AuthGuard
-  ]
+    AuthGuard,
+  ],
 })
 export class AppModule {
 }
