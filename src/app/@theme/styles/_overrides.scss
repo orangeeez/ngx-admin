@@ -9,6 +9,12 @@
     }
   }
 
+  // nb-base-calendar {
+  //   nb-card {
+  //     width: calc(100vw - #{nb-theme(sidebar-width-compact)} - 2.25rem);
+  //   }
+  // }
+
   nb-card nb-list {
     @include nb-scrollbars(
       nb-theme(card-scrollbar-color),

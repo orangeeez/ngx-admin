@@ -29,7 +29,8 @@
 <div class="header-container">
   <nb-actions size="small">
 
-    <nb-action class="control-item">
+    <nb-action class="control-item"
+      *nbIsGranted="['edit', 'search']">
       <nb-search
         type="rotate-layout"
         matRipple
@@ -52,7 +53,6 @@
     ></nb-action>
     <nb-action
       class="user-action"
-      *nbIsGranted="['view', 'user']"
       matRipple
       [matRippleUnbounded]="true"
       [matRippleCentered]="true">

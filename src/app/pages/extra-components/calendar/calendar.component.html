@@ -1,23 +1,18 @@
 <div class="calendars">
   <div class="calendar-container">
-    <span class="subtitle">
-      Selected date: {{ date | date }}
-    </span>
-    <nb-calendar [(date)]="date" [boundingMonth]="true" showWeekNumber></nb-calendar>
-  </div>
-  <div class="calendar-container">
-    <span class="subtitle">
-      Selected range: {{ range.start | date }} - {{ range.end | date }}
-    </span>
-    <nb-calendar-range [(range)]="range"></nb-calendar-range>
-  </div>
-  <div class="calendar-container">
-    <span class="subtitle">
-      Selected date: {{ date2 | date }}
-    </span>
-    <nb-calendar
-      [(date)]="date2"
-      [dayCellComponent]="dayCellComponent"
-    ></nb-calendar>
+    <nb-calendar 
+    [(date)]="date" 
+    [boundingMonth]="true"
+    (dateChange)="onDateChanged()"></nb-calendar>
+    <nb-card [@timePicker]="timePickerState" class="time-picker" >
+      <nb-card-header>{{date | date}}</nb-card-header>
+      <nb-card-body>
+        <nb-list>
+          <nb-list-item *ngFor="let test of ['1', '2']">
+            {{ test }}
+          </nb-list-item>
+        </nb-list>
+      </nb-card-body>
+    </nb-card>
   </div>
 </div>

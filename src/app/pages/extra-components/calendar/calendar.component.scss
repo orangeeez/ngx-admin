@@ -7,16 +7,34 @@
     display: flex;
     flex-wrap: wrap;
     margin: -1rem -0.5rem;
-    justify-content: center;
+    justify-content: center;   
   }
 
   .calendar-container {
     margin: 1rem 0.5rem;
+    display: flex;
+
+    nb-calendar {
+      z-index: 1;
+    }
+
+    .time-picker {
+      margin: 0;
+
+      nb-card-header {
+        padding: 1.12rem 1.5rem;
+      }
+    }
   }
 
-  .subtitle {
-    display: block;
-    margin-bottom: 0.5rem;
+  @include media-breakpoint-down(sm) {
+    .calendars {
+      justify-content: center;
+    }
+
+    .calendar-container {
+      flex-direction: column;
+    }
   }
 
   @include media-breakpoint-up(md) {

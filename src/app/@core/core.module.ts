@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
-import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
+import { NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken, NbDummyAuthStrategy } from '@nebular/auth';
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
 
@@ -55,6 +55,7 @@ import { SecurityCamerasService } from './mock/security-cameras.service';
 import { RippleService } from './utils/ripple.service';
 import { MockDataModule } from './mock/mock-data.module';
 import { NgxAuthModule } from '../auth/auth.module';
+import { RoleProvider } from '../security/role.provider';
 
 const socialLinks = [
   {
@@ -97,23 +98,18 @@ const DATA_SERVICES = [
   {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useExisting: RippleService},
 ];
 
-export class NbSimpleRoleProvider extends NbRoleProvider {
-  getRole() {
-    // here you could provide any role based on any auth flow
-    return observableOf('guest');
-  }
-}
-
 export const NB_CORE_PROVIDERS = [
   NgxAuthModule,
   ...MockDataModule.forRoot().providers,
   ...DATA_SERVICES,
   ...NbAuthModule.forRoot({
-
     strategies: [
-      NbDummyAuthStrategy.setup({
+      NbPasswordAuthStrategy.setup({
         name: 'email',
-        delay: 3000,
+        token: {
+          class: NbAuthJWTToken,
+          key: 'token'
+        }
       }),
     ],
     forms: {
@@ -128,11 +124,11 @@ export const NB_CORE_PROVIDERS = [
 
   NbSecurityModule.forRoot({
     accessControl: {
-      guest: {
+      user: {
         view: '*',
       },
-      user: {
-        parent: 'guest',
+      admin: {
+        parent: 'user',
         create: '*',
         edit: '*',
         remove: '*',
@@ -141,7 +137,7 @@ export const NB_CORE_PROVIDERS = [
   }).providers,
 
   {
-    provide: NbRoleProvider, useClass: NbSimpleRoleProvider,
+    provide: NbRoleProvider, useClass: RoleProvider,
   },
   AnalyticsService,
   LayoutService,

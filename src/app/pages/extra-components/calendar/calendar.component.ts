@@ -1,32 +1,93 @@
+import { animate, keyframes, query, stagger, state, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
-import { NbCalendarRange, NbDateService } from '@nebular/theme';
+import { NbCalendarSize, NbDateService, NbMediaBreakpointsService, NbThemeService } from '@nebular/theme';
+import { Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { DayCellComponent } from './day-cell/day-cell.component';
 
+enum DatePickerState {
+  SHOW = 'show',
+  HIDE = 'hide',
+  SHOW_H = 'showH',
+  HIDE_H = 'hideH',
+  SHOW_V = 'showV',
+  HIDE_V = 'hideV'
+}
 @Component({
   selector: 'ngx-calendar',
   templateUrl: 'calendar.component.html',
   styleUrls: ['calendar.component.scss'],
   entryComponents: [DayCellComponent],
+  animations: [
+    trigger('timePicker', [
+      state('hideH', style({
+        transform: 'translateX(-100%)'
+      })),
+      state('hideV', style({
+        transform: 'translateY(-100%)'
+      })),
+      transition('hideH => showH',
+        animate('200ms', keyframes([
+          style({transform: 'translateX(-100%)'}),
+          style({transform: 'translateX(0%)'})
+        ])
+      )),
+      transition('hideV => showV',
+        animate('200ms', keyframes([
+          style({transform: 'translateY(-100%)'}),
+          style({transform: 'translateY(0%)'})
+        ])
+      ))
+    ]),
+  ]
 })
-export class CalendarComponent {
 
-  date = new Date();
-  date2 = new Date();
-  range: NbCalendarRange<Date>;
+export class CalendarComponent {
+  private destroy$: Subject<void> = new Subject<void>();
+  private _timePickerState: DatePickerState;
+  size: NbCalendarSize;
+  date: Date;
+  isTimePickerHorizontal: boolean;
   dayCellComponent = DayCellComponent;
 
-  constructor(protected dateService: NbDateService<Date>) {
-    this.range = {
-      start: this.dateService.addDay(this.monthStart, 3),
-      end: this.dateService.addDay(this.monthEnd, -3),
-    };
+  constructor(
+    protected dateService: NbDateService<Date>,
+    private breakpointService: NbMediaBreakpointsService,
+    private themeService: NbThemeService,) {
+    this.size = NbCalendarSize.LARGE;
   }
 
-  get monthStart(): Date {
-    return this.dateService.getMonthStart(new Date());
+  get timePickerState(): string {
+    return this.isTimePickerHorizontal
+      ? this._timePickerState + 'H'
+      : this._timePickerState + 'V';
   }
 
-  get monthEnd(): Date {
-    return this.dateService.getMonthEnd(new Date());
+  set timePickerState(value: string) {
+    this._timePickerState = value === DatePickerState.HIDE 
+      ? DatePickerState.HIDE
+      : DatePickerState.SHOW
+  }
+
+  ngOnInit() {
+    const { md } = this.breakpointService.getBreakpointsMap();
+    this.themeService.onMediaQueryChange()
+      .pipe(
+        map(([, currentBreakpoint]) => currentBreakpoint.width < md),
+        takeUntil(this.destroy$),
+      )
+      .subscribe((isLessThanMd: boolean) => {
+        this.isTimePickerHorizontal = !isLessThanMd
+        this.timePickerState = DatePickerState.HIDE;
+      });
+  }
+
+  showTimePicker() {
+    this._timePickerState = DatePickerState.SHOW;
+  }
+
+  onDateChanged(): void {
+    if (this._timePickerState === DatePickerState.HIDE)
+      this.showTimePicker();
   }
 }
