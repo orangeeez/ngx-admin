@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NbAuthJWTToken, NbAuthResult, NbAuthService, NbLoginComponent, NbTokenService, NB_AUTH_OPTIONS } from '@nebular/auth';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-login',

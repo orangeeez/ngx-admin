@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
+import { NbMediaBreakpointsService, NbMenuItem, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
-import { map, takeUntil } from 'rxjs/operators';
+import { filter, map, takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { RippleService } from '../../../@core/utils/ripple.service';
-import { NbAuthJWTToken, NbAuthService, NbAuthToken } from '@nebular/auth';
+import { NbAuthResult, NbAuthService, NbAuthToken } from '@nebular/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-header',
@@ -49,7 +50,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = 'default';
 
-  userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
+  userMenu = [
+    { title: 'Profile', data: 'profile', link: 'profile' }, 
+    { title: 'Log out', data: 'logout'}
+  ];
 
   public constructor(
     private authService: NbAuthService,
@@ -60,6 +64,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
     private rippleService: RippleService,
+    private router: Router
   ) {
     this.materialTheme$ = this.themeService.onThemeChange()
       .pipe(map(theme => {
@@ -95,6 +100,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.currentTheme = themeName;
         this.rippleService.toggle(themeName?.startsWith('material'));
       });
+
+    this.menuService.onItemClick()
+      .pipe(
+        filter(({ tag }) => tag === 'header-menu'),
+        map(({ item: item }) => item),
+      )
+      .subscribe(item => this.onContextMenuClick(item));
   }
 
   ngOnDestroy() {
@@ -116,5 +128,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navigateHome() {
     this.menuService.navigateHome();
     return false;
+  }
+
+  onProfileClick(item: NbMenuItem) {
+    console.log(item);
+  }
+
+  onLogoutlick() {
+    this.authService.logout('email')
+      .subscribe((result: NbAuthResult) => {
+        this.router.navigate([result.getRedirect()]);
+      });
+  }
+
+  private onContextMenuClick(item: NbMenuItem) {
+    switch (item.data) {
+      case 'profile':
+        this.onProfileClick(item);
+        break;
+
+      case 'logout':
+        this.onLogoutlick();
+        break;
+    
+      default:
+        break;
+    }
   }
 }

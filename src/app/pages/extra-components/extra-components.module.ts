@@ -2,19 +2,21 @@ import { NgModule } from '@angular/core';
 import {
   NbActionsModule,
   NbAlertModule,
+  NbBaseCalendarModule,
   NbButtonModule,
   NbCalendarKitModule,
   NbCalendarModule,
   NbCalendarRangeModule,
   NbCardModule,
   NbChatModule,
+  NbDatepickerModule,
   NbIconModule,
-  NbListComponent,
   NbListModule,
   NbProgressBarModule,
   NbSelectModule,
   NbSpinnerModule,
   NbTabsetModule,
+  NbTimepickerModule,
 } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
@@ -76,6 +78,8 @@ const MODULES = [
   NbTabsetModule,
   ThemeModule,
   ExtraComponentsRoutingModule,
+  NbBaseCalendarModule,
+  NbTimepickerModule.forRoot({ twelveHoursFormat: false }),
 ];
 
 @NgModule({

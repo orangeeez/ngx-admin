@@ -2,12 +2,19 @@
 @import '~@nebular/theme/styles/global/breakpoints';
 @import '../../../@theme/styles/themes';
 
+:host {
+  width: 100%;
+  height: 100%;
+}
+
 @include nb-install-component() {
   .calendars {
     display: flex;
     flex-wrap: wrap;
     margin: -1rem -0.5rem;
-    justify-content: center;   
+    justify-content: center;
+    min-height: 100%;
+    min-width: 100%;
   }
 
   .calendar-container {
@@ -24,6 +31,27 @@
       nb-card-header {
         padding: 1.12rem 1.5rem;
       }
+
+      nb-list-item {
+        justify-content: center;
+      }
+    }
+  }
+
+  nb-calendar-picker {
+    .day-cell .size-large {
+      width: 5rem;
+      height: 5rem;
+    }
+  
+    .month-cell .size-large {
+      width: 5rem;
+      height: 5rem;
+    }
+  
+    .year-cell .size-large {
+      width: 5rem;
+      height: 5rem;
     }
   }
 

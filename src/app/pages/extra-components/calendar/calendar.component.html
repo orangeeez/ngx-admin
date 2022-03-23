@@ -1,15 +1,17 @@
 <div class="calendars">
   <div class="calendar-container">
     <nb-calendar 
-    [(date)]="date" 
+    [(date)]="date"
+    [size]="size" 
     [boundingMonth]="true"
     (dateChange)="onDateChanged()"></nb-calendar>
     <nb-card [@timePicker]="timePickerState" class="time-picker" >
-      <nb-card-header>{{date | date}}</nb-card-header>
+      <nb-card-header>{{date | date: 'MMM d, h:mm a'}}</nb-card-header>
       <nb-card-body>
         <nb-list>
-          <nb-list-item *ngFor="let test of ['1', '2']">
-            {{ test }}
+          <nb-list-item *ngFor="let unit of timeUnits">
+            <button nbButton status="primary"
+              (click)="onTimeUnitClick(unit)">{{ unit.Name }}</button>
           </nb-list-item>
         </nb-list>
       </nb-card-body>

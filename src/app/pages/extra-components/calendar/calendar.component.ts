@@ -1,11 +1,12 @@
 import { animate, keyframes, query, stagger, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { NbCalendarSize, NbDateService, NbMediaBreakpointsService, NbThemeService } from '@nebular/theme';
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
+import { DateTimePickerService, TimeUnit } from '../../../@core/mock/datetime-picker.service';
 import { DayCellComponent } from './day-cell/day-cell.component';
 
-enum DatePickerState {
+enum TimePickerState {
   SHOW = 'show',
   HIDE = 'hide',
   SHOW_H = 'showH',
@@ -44,17 +45,20 @@ enum DatePickerState {
 
 export class CalendarComponent implements OnInit {
   private destroy$: Subject<void> = new Subject<void>();
-  private _timePickerState: DatePickerState;
+  private _timePickerState: TimePickerState;
   size: NbCalendarSize;
   date: Date;
+  timeUnits: TimeUnit[];
   isTimePickerHorizontal: boolean;
   dayCellComponent = DayCellComponent;
 
   constructor(
       protected dateService: NbDateService<Date>,
       private breakpointService: NbMediaBreakpointsService,
-      private themeService: NbThemeService) {
+      private themeService: NbThemeService,
+      private dateTimePickerService: DateTimePickerService) {
     this.size = NbCalendarSize.LARGE;
+    this.timeUnits = this.dateTimePickerService.getTimeUnits();
   }
 
   get timePickerState(): string {
@@ -64,9 +68,9 @@ export class CalendarComponent implements OnInit {
   }
 
   set timePickerState(value: string) {
-    this._timePickerState = value === DatePickerState.HIDE
-      ? DatePickerState.HIDE
-      : DatePickerState.SHOW;
+    this._timePickerState = value === TimePickerState.HIDE
+      ? TimePickerState.HIDE
+      : TimePickerState.SHOW;
   }
 
   ngOnInit() {
@@ -78,16 +82,25 @@ export class CalendarComponent implements OnInit {
       )
       .subscribe((isLessThanMd: boolean) => {
         this.isTimePickerHorizontal = !isLessThanMd;
-        this.timePickerState = DatePickerState.HIDE;
+        this.timePickerState = TimePickerState.HIDE;
       });
   }
 
   showTimePicker() {
-    this._timePickerState = DatePickerState.SHOW;
+    this._timePickerState = TimePickerState.SHOW;
   }
 
   onDateChanged(): void {
-    if (this._timePickerState === DatePickerState.HIDE)
+    if (this._timePickerState === TimePickerState.HIDE)
       this.showTimePicker();
+  }
+
+  onTimeUnitClick(unit: TimeUnit) {
+    this.date = new Date(
+      this.date.getFullYear(),
+      this.date.getMonth(),
+      this.date.getDate(),
+      unit.Hour, 
+      unit.Minute);
   }
 }
