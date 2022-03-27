@@ -34,7 +34,7 @@
            [attr.aria-invalid]="fullName.invalid && fullName.touched ? true : null">
     <ng-container *ngIf="fullName.invalid && fullName.touched">
       <p class="caption status-danger" *ngIf="fullName.errors?.required">
-        Full name is required!
+        Full name is required
       </p>
       <p class="caption status-danger" *ngIf="fullName.errors?.minlength || fullName.errors?.maxlength">
         Full name should contains
@@ -61,10 +61,10 @@
            [attr.aria-invalid]="email.invalid && email.touched ? true : null">
     <ng-container *ngIf="email.invalid && email.touched">
       <p class="caption status-danger" *ngIf="email.errors?.required">
-        Email is required!
+        Email is required
       </p>
       <p class="caption status-danger" *ngIf="email.errors?.pattern">
-        Email should be the real one!
+        Email should be the real one
       </p>
     </ng-container>
   </div>
@@ -87,7 +87,7 @@
            [attr.aria-invalid]="password.invalid && password.touched ? true : null">
     <ng-container *ngIf="password.invalid && password.touched">
       <p class="caption status-danger" *ngIf="password.errors?.required">
-        Password is required!
+        Password is required
       </p>
       <p class="caption status-danger" *ngIf="password.errors?.minlength || password.errors?.maxlength">
         Password should contain
@@ -114,10 +114,10 @@
            [attr.aria-invalid]="rePass.invalid && rePass.touched ? true : null">
     <ng-container *ngIf="rePass.invalid && rePass.touched">
       <p class="caption status-danger" *ngIf="rePass.errors?.required">
-        Password confirmation is required!
+        Password confirmation is required
       </p>
       <p class="caption status-danger" *ngIf="password.value != rePass.value && !rePass.errors?.required">
-        Password does not match the confirm password.
+        Password does not match the confirm password
       </p>
     </ng-container>
   </div>
@@ -138,24 +138,34 @@
   </button>
 </form>
 
-<section *ngIf="socialLinks && socialLinks.length > 0" class="links" aria-label="Social sign in">
+<section
+  *ngIf="socialLinks && socialLinks.length > 0"
+  class="links"
+  aria-label="Social sign in">
   or enter with:
   <div class="socials">
     <ng-container *ngFor="let socialLink of socialLinks">
-      <a *ngIf="socialLink.link"
-         [routerLink]="socialLink.link"
-         [attr.target]="socialLink.target"
-         [attr.class]="socialLink.icon"
-         [class.with-icon]="socialLink.icon">
-        <nb-icon *ngIf="socialLink.icon; else title" [icon]="socialLink.icon"></nb-icon>
+      <a
+        *ngIf="socialLink.link"
+        [routerLink]="socialLink.link"
+        [attr.target]="socialLink.target"
+        [attr.class]="socialLink.icon"
+        [class.with-icon]="socialLink.icon">
+        <nb-icon
+          *ngIf="socialLink.icon; else title"
+          [icon]="socialLink.icon"></nb-icon>
         <ng-template #title>{{ socialLink.title }}</ng-template>
       </a>
-      <a *ngIf="socialLink.url"
-         [attr.href]="socialLink.url"
-         [attr.target]="socialLink.target"
-         [attr.class]="socialLink.icon"
-         [class.with-icon]="socialLink.icon">
-        <nb-icon *ngIf="socialLink.icon; else title" [icon]="socialLink.icon"></nb-icon>
+      <a
+        *ngIf="socialLink.url"
+        [attr.href]="socialLink.url"
+        [attr.target]="socialLink.target"
+        [attr.class]="socialLink.icon"
+        [class.with-icon]="socialLink.icon">
+        <nb-icon
+          *ngIf="socialLink.icon; else title"
+          [icon]="socialLink.icon"
+          [pack]="socialLink.pack"></nb-icon>
         <ng-template #title>{{ socialLink.title }}</ng-template>
       </a>
     </ng-container>

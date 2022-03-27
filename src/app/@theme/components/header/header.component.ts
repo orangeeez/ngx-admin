@@ -137,7 +137,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onLogoutlick() {
     this.authService.logout('email')
       .subscribe((result: NbAuthResult) => {
-        this.router.navigate([result.getRedirect()]);
+        if (result.isSuccess)
+          this.router.navigate(['auth/login']);
       });
   }
 

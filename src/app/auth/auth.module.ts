@@ -8,15 +8,19 @@ import { NbAuthModule } from '@nebular/auth';
 import {
   NbAlertModule,
   NbButtonModule,
+  NbCardModule,
   NbCheckboxModule,
+  NbIconModule,
   NbInputModule,
+  NbLayoutModule,
 } from '@nebular/theme';
-import { LoginComponent } from '../components/login/login.component';
+import { LoginComponent } from './login/login.component';
 import { AngularTelegramLoginWidgetModule } from 'angular-telegram-login-widget';
-import { RegisterComponent } from '../components/register/register.component';
-import { LogoutComponent } from '../components/logout/logout.component';
-import { ResetPasswordComponent } from '../components/reset-password/reset-password.component';
-import { RequestPasswordComponent } from '../components/request-password/request-password.component';
+import { RegisterComponent } from './register/register.component';
+import { LogoutComponent } from './logout/logout.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RequestPasswordComponent } from './request-password/request-password.component';
+import { AuthComponent } from './auth/auth.component';
 
 
 @NgModule({
@@ -28,10 +32,12 @@ import { RequestPasswordComponent } from '../components/request-password/request
     NbInputModule,
     NbButtonModule,
     NbCheckboxModule,
+    NbAuthModule,
+    NbCardModule,
+    NbLayoutModule,
+    NbIconModule,
     NgxAuthRoutingModule,
     AngularTelegramLoginWidgetModule,
-
-    NbAuthModule,
   ],
   declarations: [
     LoginComponent,
@@ -39,6 +45,7 @@ import { RequestPasswordComponent } from '../components/request-password/request
     LogoutComponent,
     ResetPasswordComponent,
     RequestPasswordComponent,
+    AuthComponent
   ],
 })
 export class NgxAuthModule {}

@@ -59,19 +59,10 @@ import { RoleProvider } from '../security/role.provider';
 
 const socialLinks = [
   {
-    url: 'https://github.com/akveo/nebular',
-    target: '_blank',
-    icon: 'github',
-  },
-  {
-    url: 'https://www.facebook.com/akveo/',
-    target: '_blank',
-    icon: 'facebook',
-  },
-  {
     url: 'https://twitter.com/akveo_inc',
     target: '_blank',
-    icon: 'twitter',
+    icon: 'telegram',
+    pack: 'fab'
   },
 ];
 
