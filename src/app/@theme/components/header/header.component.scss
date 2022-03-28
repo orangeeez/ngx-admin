@@ -27,6 +27,10 @@
     padding: 0!important;
   }
 
+  ::ng-deep nb-toggle label {
+    margin-bottom: 0;
+  }
+
   .header-container {
     display: flex;
     align-items: center;
@@ -49,6 +53,13 @@
       @include nb-rtl(border-right, 1px solid nb-theme(divider-color));
       white-space: nowrap;
       text-decoration: none;
+    }
+
+    .moon-container {
+      padding: 0 1.25rem;
+      nb-icon {
+        color: nb-theme(text-hint-color);
+      }
     }
   }
 

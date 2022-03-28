@@ -10,9 +10,12 @@
     >
       <nb-icon [icon]="(materialTheme$ | async) ? 'menu-outline' : 'menu-2-outline'"></nb-icon>
     </a>
-    <a class="logo" href="#" (click)="navigateHome()">ngx-<span>admin</span></a>
+    <nb-toggle [(checked)]="isThemeChecked" (change)="toggleTheme()" status="basic"></nb-toggle>
+    <div class="moon-container">
+      <nb-icon icon="moon-outline"></nb-icon>
+    </div>
   </div>
-  <nb-select
+  <!-- <nb-select
     status="primary"
     matRipple
     [selected]="currentTheme"
@@ -23,7 +26,7 @@
       [value]="theme.value"
       matRipple
     >{{ theme.name }}</nb-option>
-  </nb-select>
+  </nb-select> -->
 </div>
 
 <div class="header-container">

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuItem, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 
 import { UserData } from '../../../@core/data/users';
@@ -18,7 +18,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<void> = new Subject<void>();
   public readonly materialTheme$: Observable<boolean>;
-  userPictureOnly: boolean = false;
+  userPictureOnly: boolean = true;
+  isThemeChecked: boolean;
   user: any;
 
   themes = [
@@ -48,8 +49,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     },
   ];
 
-  currentTheme = 'default';
-
   userMenu = [
     { title: 'Profile', data: 'profile', link: 'profile' }, 
     { title: 'Log out', data: 'logout'}
@@ -65,17 +64,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private breakpointService: NbMediaBreakpointsService,
     private rippleService: RippleService,
     private router: Router
-  ) {
-    this.materialTheme$ = this.themeService.onThemeChange()
-      .pipe(map(theme => {
-        const themeName: string = theme?.name || '';
-        return themeName.startsWith('material');
-      }));
-  }
+  ) {}
 
   ngOnInit() {
-    this.currentTheme = this.themeService.currentTheme;
-
     this.authService.onTokenChange()
       .subscribe((token: NbAuthToken) => {
         if (token.isValid()) {
@@ -83,22 +74,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       });
 
-    const { xl } = this.breakpointService.getBreakpointsMap();
-    this.themeService.onMediaQueryChange()
-      .pipe(
-        map(([, currentBreakpoint]) => currentBreakpoint.width < xl),
-        takeUntil(this.destroy$),
-      )
-      .subscribe((isLessThanXl: boolean) => this.userPictureOnly = isLessThanXl);
-
     this.themeService.onThemeChange()
       .pipe(
         map(({ name }) => name),
         takeUntil(this.destroy$),
       )
       .subscribe(themeName => {
-        this.currentTheme = themeName;
-        this.rippleService.toggle(themeName?.startsWith('material'));
+        var currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'cosmic') {
+          this.isThemeChecked = true;
+          this.themeService.changeTheme(currentTheme);
+        }
       });
 
     this.menuService.onItemClick()
@@ -116,6 +102,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   changeTheme(themeName: string) {
     this.themeService.changeTheme(themeName);
+  }
+
+  toggleTheme() {
+    var theme = this.isThemeChecked 
+      ? 'cosmic'
+      : 'default';
+
+    localStorage.setItem('theme', theme);
+    this.themeService.changeTheme(theme);
   }
 
   toggleSidebar(): boolean {
