@@ -126,10 +126,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onProfileClick(item: NbMenuItem) {
-    console.log(item);
+    this.router.navigateByUrl('/pages/profile');
   }
 
-  onLogoutlick() {
+  onLogoutClick() {
     this.authService.logout('email')
       .subscribe((result: NbAuthResult) => {
         if (result.isSuccess)
@@ -144,7 +144,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         break;
 
       case 'logout':
-        this.onLogoutlick();
+        this.onLogoutClick();
         break;
     
       default:

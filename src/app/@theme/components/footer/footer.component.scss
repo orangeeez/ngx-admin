@@ -8,6 +8,18 @@
   justify-content: space-between;
   align-items: center;
 
+  .created-by {
+    color: nb-theme(text-hint-color);
+    transition: color ease-out 0.1s;
+    nb-icon {
+      padding: 0 0.5rem;
+      font-size: 1rem;
+    }
+
+    &:hover {
+      color: nb-theme(text-basic-color);
+    }
+  }
   .socials {
     font-size: 2rem;
 
@@ -19,12 +31,20 @@
       &:hover {
         color: nb-theme(text-basic-color);
       }
+
+      nb-icon {
+        font-size: 2rem;
+      }
     }
   }
 
   @include media-breakpoint-down(is) {
     .socials {
       font-size: 1.5rem;
+
+      nb-icon {
+        font-size: 1.5rem;
+      }
     }
   }
 }

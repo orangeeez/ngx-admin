@@ -14,11 +14,17 @@ const routes: Routes = [{
   children: [
     {
       path: 'dashboard',
-      component: ECommerceComponent,
+      component: DashboardComponent,
     },
     {
       path: 'iot-dashboard',
-      component: DashboardComponent,
+      component: ECommerceComponent,
+    },
+    {
+      path: 'profile',
+      canLoad: [AuthGuard],
+      loadChildren: () => import('./profile/profile.module')
+        .then(m => m.ProfileModule),
     },
     {
       path: 'layout',

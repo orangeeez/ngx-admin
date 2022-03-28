@@ -106,6 +106,7 @@ export const NB_CORE_PROVIDERS = [
     forms: {
       login: {
         socialLinks: socialLinks,
+        redirectDelay: 500
       },
       register: {
         socialLinks: socialLinks,
