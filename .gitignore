@@ -1,10 +1,13 @@
 # compiled output
-# /dist
-# /dist/*.svg
-# /dist/*.woff2
-# /dist/*.woff
-# /dist/*.eot
-# /dist/*.ttf
+/dist
+/dist/*.svg
+/dist/*.woff2
+/dist/*.woff
+/dist/*.eot
+/dist/*.ttf
+/dist/*.js
+/dist/*.html
+/dist/*.txt
 /tmp
 /out-tsc
 
