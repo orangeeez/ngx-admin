@@ -13,6 +13,8 @@
     "ng": "ng",
     "conventional-changelog": "conventional-changelog",
     "start": "ng serve --disable-host-check",
+    "start:local": "ng serve -c local --disable-host-check",
+    "start:postman": "ng serve -c postman --disable-host-check",
     "build": "ng build",
     "build:prod": "npm run build -- --configuration production --aot",
     "test": "ng test",
@@ -27,7 +29,7 @@
     "docs:serve": "compodoc -p src/tsconfig.app.json -d docs -s",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
     "postinstall": "ngcc --properties es2015 es5 browser module main --first-only --create-ivy-entry-points --tsconfig \"./src/tsconfig.app.json\"",
-    "deploy:local": "http-server ./dist --cors -P http://6e515054-ccd4-42cd-9f9e-e001f8a232ec.mock.pstmn.io",
+    "deploy:local": "http-server ./dist --cors -P http://9391d86b-27b7-4100-a057-306ec8d14048.mock.pstmn.io",
     "deploy:tunnel": "ngrok http localhost:4200"
   },
   "dependencies": {

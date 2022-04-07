@@ -114,9 +114,15 @@
 <section
   *ngIf="socialLinks && socialLinks.length > 0"
   class="links"
-  aria-label="Social sign in">or
+  aria-label="Social sign in">
+  or
   <div class="socials">
-    <ng-container *ngFor="let socialLink of socialLinks">
+    <angular-telegram-login-widget
+        (load)="onLoad()"
+        (loadError)="onLoadError()"
+        (login)="onLogin($event)"
+        [botName]="botName"></angular-telegram-login-widget>
+    <!-- <ng-container *ngFor="let socialLink of socialLinks">
       <a
         *ngIf="socialLink.link"
         [routerLink]="socialLink.link"
@@ -140,7 +146,7 @@
           [pack]="socialLink.pack"></nb-icon>
         <ng-template #title>{{ socialLink.title }}</ng-template>
       </a>
-    </ng-container>
+    </ng-container> -->
   </div>
 </section>
 

@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://6e515054-ccd4-42cd-9f9e-e001f8a232ec.mock.pstmn.io",
+    "target": "http://localhost",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
