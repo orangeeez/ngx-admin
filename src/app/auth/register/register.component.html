@@ -143,31 +143,11 @@
   class="links"
   aria-label="Social sign in">or
   <div class="socials">
-    <ng-container *ngFor="let socialLink of socialLinks">
-      <a
-        *ngIf="socialLink.link"
-        [routerLink]="socialLink.link"
-        [attr.target]="socialLink.target"
-        [attr.class]="socialLink.icon"
-        [class.with-icon]="socialLink.icon">
-        <nb-icon
-          *ngIf="socialLink.icon; else title"
-          [icon]="socialLink.icon"></nb-icon>
-        <ng-template #title>{{ socialLink.title }}</ng-template>
-      </a>
-      <a
-        *ngIf="socialLink.url"
-        [attr.href]="socialLink.url"
-        [attr.target]="socialLink.target"
-        [attr.class]="socialLink.icon"
-        [class.with-icon]="socialLink.icon">
-        <nb-icon
-          *ngIf="socialLink.icon; else title"
-          [icon]="socialLink.icon"
-          [pack]="socialLink.pack"></nb-icon>
-        <ng-template #title>{{ socialLink.title }}</ng-template>
-      </a>
-    </ng-container>
+    <angular-telegram-login-widget
+        (load)="onLoad()"
+        (loadError)="onLoadError()"
+        (login)="onLogin($event)"
+        [botName]="botOptions.botName"></angular-telegram-login-widget>
   </div>
 </section>
 

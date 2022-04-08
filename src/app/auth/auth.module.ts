@@ -21,6 +21,8 @@ import { LogoutComponent } from './logout/logout.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { RequestPasswordComponent } from './request-password/request-password.component';
 import { AuthComponent } from './auth/auth.component';
+import { environment } from '../../environments/environment';
+import { TELEGRAM_BOT_OPTIONS } from './auth.options';
 
 
 @NgModule({
@@ -47,5 +49,13 @@ import { AuthComponent } from './auth/auth.component';
     RequestPasswordComponent,
     AuthComponent
   ],
+  providers: [
+    { 
+      provide: TELEGRAM_BOT_OPTIONS, 
+      useValue: {
+        botName: environment.botName
+      }
+    }
+  ]
 })
 export class NgxAuthModule {}
