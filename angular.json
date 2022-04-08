@@ -97,11 +97,9 @@
           },
           "configurations": {
             "local": {
-              "browserTarget": "ngx-admin-demo:build:production",
               "proxyConfig": "src/proxy-local.conf.json"
             },
             "postman": {
-              "browserTarget": "ngx-admin-demo:build:production",
               "proxyConfig": "src/proxy-postman.conf.json"
             },
             "production": {

@@ -5,7 +5,7 @@
             "type": "pwa-msedge",
             "request": "launch",
             "name": "Edge + ngrok",
-            "url": "http://3aad-176-105-52-154.ngrok.io",
+            "url": "http://ea50-176-105-52-154.ngrok.io",
             "sourceMaps": true,
             "webRoot": "${workspaceRoot}"
         },
