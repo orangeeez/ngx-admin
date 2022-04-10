@@ -1,21 +1,26 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { NbMediaBreakpointsService, NbMenuItem, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
+import { AfterViewInit, Component, OnDestroy, OnInit } from "@angular/core";
+import {
+  NbMediaBreakpointsService,
+  NbMenuItem,
+  NbMenuService,
+  NbSidebarService,
+  NbThemeService,
+} from "@nebular/theme";
 
-import { UserData } from '../../../@core/data/users';
-import { LayoutService } from '../../../@core/utils';
-import { filter, map, takeUntil } from 'rxjs/operators';
-import { Subject, Observable } from 'rxjs';
-import { RippleService } from '../../../@core/utils/ripple.service';
-import { NbAuthResult, NbAuthService, NbAuthToken } from '@nebular/auth';
-import { Router } from '@angular/router';
+import { UserData } from "../../../@core/data/users";
+import { LayoutService } from "../../../@core/utils";
+import { filter, map, takeUntil } from "rxjs/operators";
+import { Subject, Observable } from "rxjs";
+import { RippleService } from "../../../@core/utils/ripple.service";
+import { NbAuthResult, NbAuthService, NbAuthToken } from "@nebular/auth";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'ngx-header',
-  styleUrls: ['./header.component.scss'],
-  templateUrl: './header.component.html',
+  selector: "ngx-header",
+  styleUrls: ["./header.component.scss"],
+  templateUrl: "./header.component.html",
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-
   private destroy$: Subject<void> = new Subject<void>();
   public readonly materialTheme$: Observable<boolean>;
   userPictureOnly: boolean = true;
@@ -24,34 +29,39 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   themes = [
     {
-      value: 'default',
-      name: 'Light',
+      value: "default",
+      name: "Light",
     },
     {
-      value: 'dark',
-      name: 'Dark',
+      value: "dark",
+      name: "Dark",
     },
     {
-      value: 'cosmic',
-      name: 'Cosmic',
+      value: "cosmic",
+      name: "Cosmic",
     },
     {
-      value: 'corporate',
-      name: 'Corporate',
+      value: "corporate",
+      name: "Corporate",
     },
     {
-      value: 'material-light',
-      name: 'Material Light',
+      value: "material-light",
+      name: "Material Light",
     },
     {
-      value: 'material-dark',
-      name: 'Material Dark',
+      value: "material-dark",
+      name: "Material Dark",
     },
   ];
 
   userMenu = [
-    { title: 'Profile', data: 'profile', link: 'profile' }, 
-    { title: 'Log out', data: 'logout'}
+    {
+      title: "Profile",
+      data: "profile",
+      link: "profile",
+      icon: "person-outline",
+    },
+    { title: "Log out", data: "logout", icon: "log-out-outline" },
   ];
 
   public constructor(
@@ -67,32 +77,33 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.authService.onTokenChange()
-      .subscribe((token: NbAuthToken) => {
-        if (token.isValid()) {
-          this.user = token.getPayload();
-        }
-      });
+    this.authService.onTokenChange().subscribe((token: NbAuthToken) => {
+      if (token.isValid()) {
+        this.user = token.getPayload();
+      }
+    });
 
-    this.themeService.onThemeChange()
+    this.themeService
+      .onThemeChange()
       .pipe(
         map(({ name }) => name),
-        takeUntil(this.destroy$),
+        takeUntil(this.destroy$)
       )
-      .subscribe(themeName => {
-        var currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'cosmic') {
+      .subscribe((themeName) => {
+        var currentTheme = localStorage.getItem("theme");
+        if (currentTheme === "cosmic") {
           this.isThemeChecked = true;
           this.themeService.changeTheme(currentTheme);
         }
       });
 
-    this.menuService.onItemClick()
+    this.menuService
+      .onItemClick()
       .pipe(
-        filter(({ tag }) => tag === 'header-menu'),
-        map(({ item: item }) => item),
+        filter(({ tag }) => tag === "header-menu"),
+        map(({ item: item }) => item)
       )
-      .subscribe(item => this.onContextMenuClick(item));
+      .subscribe((item) => this.onContextMenuClick(item));
   }
 
   ngOnDestroy() {
@@ -105,16 +116,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   toggleTheme() {
-    var theme = this.isThemeChecked 
-      ? 'cosmic'
-      : 'default';
+    var theme = this.isThemeChecked ? "cosmic" : "default";
 
-    localStorage.setItem('theme', theme);
+    localStorage.setItem("theme", theme);
     this.themeService.changeTheme(theme);
   }
 
   toggleSidebar(): boolean {
-    this.sidebarService.toggle(true, 'menu-sidebar');
+    this.sidebarService.toggle(true, "menu-sidebar");
     this.layoutService.changeLayoutSize();
 
     return false;
@@ -126,27 +135,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onProfileClick(item: NbMenuItem) {
-    this.router.navigateByUrl('/pages/profile');
+    this.router.navigateByUrl("/pages/profile");
   }
 
   onLogoutClick() {
-    this.authService.logout('email')
-      .subscribe((result: NbAuthResult) => {
-        if (result.isSuccess)
-          this.router.navigate(['auth/login']);
-      });
+    this.authService.logout("email").subscribe((result: NbAuthResult) => {
+      if (result.isSuccess) this.router.navigate(["auth/login"]);
+    });
   }
 
   private onContextMenuClick(item: NbMenuItem) {
     switch (item.data) {
-      case 'profile':
+      case "profile":
         this.onProfileClick(item);
         break;
 
-      case 'logout':
+      case "logout":
         this.onLogoutClick();
         break;
-    
+
       default:
         break;
     }
