@@ -14,13 +14,13 @@ import {
   NbInputModule,
   NbLayoutModule,
 } from '@nebular/theme';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { AngularTelegramLoginWidgetModule } from 'angular-telegram-login-widget';
-import { RegisterComponent } from './register/register.component';
-import { LogoutComponent } from './logout/logout.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { RequestPasswordComponent } from './request-password/request-password.component';
-import { AuthComponent } from './auth/auth.component';
+import { RegisterComponent } from './components/register/register.component';
+import { LogoutComponent } from './components/logout/logout.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { RequestPasswordComponent } from './components/request-password/request-password.component';
+import { AuthComponent } from './components/auth/auth.component';
 import { environment } from '../../environments/environment';
 import { TELEGRAM_BOT_OPTIONS } from './auth.options';
 
