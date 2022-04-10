@@ -1,16 +1,22 @@
 ## Docker
+
+### Build
+
+`docker build --no-cache -t orangeeez/trainy_front:latest .`  
+`docker push orangeeez/trainy_front:latest`  
+
 ### Development
 
 Via **trainy**:
-- docker-compose pull front
-- docker-compose up -d
+- `docker-compose pull front`
+- `docker-compose up -d`
 
 Via **Docker Hub**:
-- docker pull orangeeez/trainy_front:latest
-- docker run -d --rm \  
+- `docker pull orangeeez/trainy_front:latest`
+- `docker run -d --rm \  
 -v ${PWD}/dev/nginx-front.conf:/etc/nginx/nginx.conf \  
 -p 4200:80 \  
---name trainy_front orangeeez/trainy_front:latest 
+--name trainy_front orangeeez/trainy_front:latest` 
 
 _**Linux**: $(pwd)_  
 _**CMD**: %cd%_  
