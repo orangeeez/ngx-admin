@@ -9,6 +9,7 @@ import {
   NB_AUTH_OPTIONS,
 } from "@nebular/auth";
 import { TELEGRAM_BOT_OPTIONS } from "../../auth.options";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: "ngx-register",
@@ -23,7 +24,7 @@ export class RegisterComponent extends NbRegisterComponent {
     @Inject(TELEGRAM_BOT_OPTIONS) protected botOptions,
     @Inject(NB_AUTH_OPTIONS) protected options = {},
     public tokenService: NbTokenService,
-    service: NbAuthService,
+    public service: AuthService,
     cd: ChangeDetectorRef,
     router: Router
   ) {
@@ -37,26 +38,25 @@ export class RegisterComponent extends NbRegisterComponent {
     this.isLoadError = true;
   }
 
-  onLogin(user: any) {
-    const token = new NbAuthJWTToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJuYW1lIjoiQW5kcmV3IFJ5emhrb3YiLCJpYXQiOjE1MTYyMzkwMjIsInBpY3R1cmUiOiJhc3NldHMvaW1hZ2VzL3J5emhrb3YuanBnIn0.aUhizY7ESNFDPL1aSVL8LWpHkkfnbW1kcYKs9Ai20CI",
-      "login",
-      new Date(1516239022)
-    );
-    const result = new NbAuthResult(
-      true,
-      null,
-      "/",
-      [],
-      "You have been successfully logged in.",
-      token
-    );
-    this.tokenService.set(result.getToken());
-    if (result.getRedirect()) {
-      setTimeout(() => {
-        this.router.navigateByUrl(result.getRedirect());
-      }, this.redirectDelay);
-    }
-    this.cd.detectChanges();
+  onLogin(data: any) {
+    this.service
+      .tgLogin(this.strategy, "/register", data)
+      .subscribe((result: NbAuthResult) => {
+        this.submitted = false;
+
+        if (result.isSuccess()) {
+          this.messages = result.getMessages();
+        } else {
+          this.errors = result.getErrors();
+        }
+
+        const redirect = result.getRedirect();
+        if (redirect) {
+          setTimeout(() => {
+            return this.router.navigateByUrl(redirect);
+          }, this.redirectDelay);
+        }
+        this.cd.detectChanges();
+      });
   }
 }

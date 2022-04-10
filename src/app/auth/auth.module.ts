@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
 
-import { NgxAuthRoutingModule } from './auth-routing.module';
-import { NbAuthModule } from '@nebular/auth';
+import { NgxAuthRoutingModule } from "./auth-routing.module";
+import { NbAuthModule } from "@nebular/auth";
 import {
   NbAlertModule,
   NbButtonModule,
@@ -13,17 +13,17 @@ import {
   NbIconModule,
   NbInputModule,
   NbLayoutModule,
-} from '@nebular/theme';
-import { LoginComponent } from './components/login/login.component';
-import { AngularTelegramLoginWidgetModule } from 'angular-telegram-login-widget';
-import { RegisterComponent } from './components/register/register.component';
-import { LogoutComponent } from './components/logout/logout.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { RequestPasswordComponent } from './components/request-password/request-password.component';
-import { AuthComponent } from './components/auth/auth.component';
-import { environment } from '../../environments/environment';
-import { TELEGRAM_BOT_OPTIONS } from './auth.options';
-
+} from "@nebular/theme";
+import { LoginComponent } from "./components/login/login.component";
+import { AngularTelegramLoginWidgetModule } from "angular-telegram-login-widget";
+import { RegisterComponent } from "./components/register/register.component";
+import { LogoutComponent } from "./components/logout/logout.component";
+import { ResetPasswordComponent } from "./components/reset-password/reset-password.component";
+import { RequestPasswordComponent } from "./components/request-password/request-password.component";
+import { AuthComponent } from "./components/auth/auth.component";
+import { environment } from "../../environments/environment";
+import { TELEGRAM_BOT_OPTIONS } from "./auth.options";
+import { AuthService } from "./services/auth.service";
 
 @NgModule({
   imports: [
@@ -47,15 +47,16 @@ import { TELEGRAM_BOT_OPTIONS } from './auth.options';
     LogoutComponent,
     ResetPasswordComponent,
     RequestPasswordComponent,
-    AuthComponent
+    AuthComponent,
   ],
   providers: [
-    { 
-      provide: TELEGRAM_BOT_OPTIONS, 
+    AuthService,
+    {
+      provide: TELEGRAM_BOT_OPTIONS,
       useValue: {
-        botName: environment.botName
-      }
-    }
-  ]
+        botName: environment.botName,
+      },
+    },
+  ],
 })
 export class NgxAuthModule {}

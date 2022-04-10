@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
-import { NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken, NbDummyAuthStrategy } from '@nebular/auth';
+import { NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken } from '@nebular/auth';
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import {
@@ -54,6 +54,7 @@ import { RippleService } from './utils/ripple.service';
 import { MockDataModule } from './mock/mock-data.module';
 import { NgxAuthModule } from '../auth/auth.module';
 import { RoleProvider } from '../security/role.provider';
+import { NgxPasswordAuthStrategy } from '../auth/strategies/password-strategy';
 
 const socialLinks = [
   {
@@ -93,7 +94,7 @@ export const NB_CORE_PROVIDERS = [
   ...DATA_SERVICES,
   ...NbAuthModule.forRoot({
     strategies: [
-      NbPasswordAuthStrategy.setup({
+      NgxPasswordAuthStrategy.setup({
         name: 'email',
         baseEndpoint: 'api/v1/auth/',
         token: {
@@ -147,6 +148,7 @@ export const NB_CORE_PROVIDERS = [
   PlayerService,
   SeoService,
   StateService,
+  NgxPasswordAuthStrategy
 ];
 
 @NgModule({
