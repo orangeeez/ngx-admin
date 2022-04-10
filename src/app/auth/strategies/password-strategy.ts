@@ -55,4 +55,37 @@ export class NgxPasswordAuthStrategy extends NbPasswordAuthStrategy {
         })
       );
   }
+
+  emailLink(data?: any): Observable<NbAuthResult> {
+    const module = "email";
+    const method = this.getOption(`${module}.method`);
+    const url = this.getActionEndpoint(module) + "link";
+    const requireValidToken = this.getOption(`${module}.requireValidToken`);
+    return this.http
+      .request(method, url, { body: data, observe: "response" })
+      .pipe(
+        map((res) => {
+          if (this.getOption(`${module}.alwaysFail`)) {
+            throw this.createFailResponse(data);
+          }
+          return res;
+        }),
+        map((res) => {
+          return new NbAuthResult(
+            true,
+            res,
+            this.getOption(`${module}.redirect.success`),
+            [],
+            this.getOption("messages.getter")(module, res, this.options),
+            this.createToken(
+              this.getOption("token.getter")(module, res, this.options),
+              requireValidToken
+            )
+          );
+        }),
+        catchError((res) => {
+          return this.handleResponseError(res, module);
+        })
+      );
+  }
 }

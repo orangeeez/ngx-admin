@@ -13,6 +13,19 @@ export class NgxPasswordAuthStrategyOptions extends NbPasswordAuthStrategyOption
     defaultErrors: ["Something went wrong, please try again."],
     defaultMessages: ["You have been successfully logged in."],
   };
+
+  email?: any = {
+    alwaysFail: false,
+    endpoint: "email",
+    method: "post",
+    requireValidToken: false,
+    redirect: {
+      success: "/",
+      failure: null,
+    },
+    defaultErrors: ["Something went wrong, please try again."],
+    defaultMessages: ["You have been successfully logged in."],
+  };
 }
 
 export const passwordStrategyOptions: NgxPasswordAuthStrategyOptions =

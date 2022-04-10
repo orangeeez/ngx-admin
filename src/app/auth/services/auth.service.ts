@@ -34,7 +34,16 @@ export class AuthService extends NbAuthService {
     );
   }
 
-  private processAuthResult(result: NbAuthResult) {
+  emailLink(strategyName: string, data?: any): Observable<NbAuthResult> {
+    var strategy = this.getStrategy(strategyName) as NgxPasswordAuthStrategy;
+    return strategy.emailLink(data).pipe(
+      switchMap((result: NbAuthResult) => {
+        return this.processAuthResult(result);
+      })
+    );
+  }
+
+  private processAuthResult(result: NbAuthResult): Observable<NbAuthResult> {
     if (result.isSuccess() && result.getToken()) {
       return this.tokenService.set(result.getToken()).pipe(
         map((token: NbAuthToken) => {
