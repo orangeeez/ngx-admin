@@ -64,6 +64,8 @@ import { MockDataModule } from "./mock/mock-data.module";
 import { NgxAuthModule } from "../auth/auth.module";
 import { RoleProvider } from "../security/role.provider";
 import { NgxPasswordAuthStrategy } from "../auth/strategies/password-strategy";
+import { TELEGRAM_BOT_OPTIONS } from "../auth/auth.options";
+import { environment } from "../../environments/environment";
 
 const socialLinks = [
   {
@@ -155,6 +157,12 @@ export const NB_CORE_PROVIDERS = [
   {
     provide: NbRoleProvider,
     useClass: RoleProvider,
+  },
+  {
+    provide: TELEGRAM_BOT_OPTIONS,
+    useValue: {
+      botName: environment.botName,
+    },
   },
   AnalyticsService,
   LayoutService,

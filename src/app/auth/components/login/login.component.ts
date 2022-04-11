@@ -50,7 +50,7 @@ export class LoginComponent extends NbLoginComponent implements AfterViewInit {
         this.toastrService.show(message, `Email confirmation`, {
           position: NbGlobalPhysicalPosition.BOTTOM_RIGHT,
           status: !queryParams.confirmed ? "success" : "danger",
-          duration: 0,
+          duration: 5000,
         });
       }
     });

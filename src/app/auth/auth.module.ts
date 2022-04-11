@@ -15,15 +15,13 @@ import {
   NbLayoutModule,
 } from "@nebular/theme";
 import { LoginComponent } from "./components/login/login.component";
-import { AngularTelegramLoginWidgetModule } from "angular-telegram-login-widget";
 import { RegisterComponent } from "./components/register/register.component";
 import { LogoutComponent } from "./components/logout/logout.component";
 import { ResetPasswordComponent } from "./components/reset-password/reset-password.component";
 import { RequestPasswordComponent } from "./components/request-password/request-password.component";
 import { AuthComponent } from "./components/auth/auth.component";
-import { environment } from "../../environments/environment";
-import { TELEGRAM_BOT_OPTIONS } from "./auth.options";
 import { AuthService } from "./services/auth.service";
+import { AngularTelegramLoginWidgetModule } from "angular-telegram-login-widget";
 
 @NgModule({
   imports: [
@@ -49,14 +47,6 @@ import { AuthService } from "./services/auth.service";
     RequestPasswordComponent,
     AuthComponent,
   ],
-  providers: [
-    AuthService,
-    {
-      provide: TELEGRAM_BOT_OPTIONS,
-      useValue: {
-        botName: environment.botName,
-      },
-    },
-  ],
+  providers: [AuthService],
 })
 export class NgxAuthModule {}
