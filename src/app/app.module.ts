@@ -6,7 +6,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { CoreModule } from "./@core/core.module";
 import { ThemeModule } from "./@theme/theme.module";
 import { AppComponent } from "./app.component";
@@ -21,7 +21,7 @@ import {
   NbWindowModule,
 } from "@nebular/theme";
 import { AuthGuard } from "./auth-guard.service";
-import { AngularTelegramLoginWidgetModule } from "angular-telegram-login-widget";
+import { TokenInterceptorService } from "./@core/interceptors/token-interceptor.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,6 +43,13 @@ import { AngularTelegramLoginWidgetModule } from "angular-telegram-login-widget"
     ThemeModule.forRoot(),
   ],
   bootstrap: [AppComponent],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    },
+  ],
 })
 export class AppModule {}

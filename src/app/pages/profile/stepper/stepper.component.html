@@ -1,0 +1,70 @@
+<div class="steppers-container row">
+  <div class="col-md-12 col-lg-12 col-xxxl-12">
+    <nb-card>
+      <nb-card-header *ngIf="stepper.selected?.label === 'Completed'">
+        <nb-icon icon="close-circle-outline" (click)="onCloseClick()"></nb-icon>
+      </nb-card-header>
+      <nb-card-body>
+        <nb-stepper #stepper>
+          <nb-step
+            *ngIf="!user.email"
+            [stepControl]="emailForm"
+            label="Link email">
+            <form
+              [formGroup]="emailForm"
+              (ngSubmit)="onEmailSubmit()"
+              class="step-container">
+              <div class="input-group">
+                <input
+                  nbInput
+                  fullWidth
+                  pattern=".+@.+\..+"
+                  placeholder="Link your email"
+                  class="form-control"
+                  formControlName="email" />
+                <ng-container *ngIf="email.invalid && email.touched">
+                  <p
+                    class="caption status-danger"
+                    *ngIf="email.errors?.required">
+                    Email is required
+                  </p>
+                  <p
+                    class="caption status-danger"
+                    *ngIf="email.errors?.pattern">
+                    Email should be the real one
+                  </p>
+                </ng-container>
+              </div>
+              <button
+                nbButton
+                status="primary"
+                [disabled]="email.invalid || email.untouched">
+                Link
+              </button>
+            </form>
+          </nb-step>
+          <nb-step
+            *ngIf="!user.tg_username"
+            [stepControl]="telegramForm"
+            label="Telegram link">
+            <form [formGroup]="telegramForm" class="step-container">
+              <angular-telegram-login-widget
+                (load)="onLoad()"
+                (loadError)="onLoadError()"
+                (login)="onTgLogin($event)"
+                [botName]="botOptions.botName"></angular-telegram-login-widget>
+            </form>
+          </nb-step>
+          <nb-step
+            [stepControl]="completedForm"
+            [hidden]="true"
+            label="Completed">
+            <div class="step-container">
+              <h3>Wizard completed!</h3>
+            </div>
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

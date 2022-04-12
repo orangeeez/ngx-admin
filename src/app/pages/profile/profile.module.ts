@@ -5,13 +5,17 @@ import { ProfileRoutingModule } from "./profile-routing.module";
 import {
   NbActionsModule,
   NbButtonModule,
+  NbCardModule,
+  NbIconModule,
   NbInputModule,
   NbLayoutModule,
   NbMenuModule,
+  NbStepperModule,
   NbUserModule,
 } from "@nebular/theme";
 import { AngularTelegramLoginWidgetModule } from "angular-telegram-login-widget";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { StepperComponent } from "./stepper/stepper.component";
 
 @NgModule({
   imports: [
@@ -22,10 +26,14 @@ import { FormsModule } from "@angular/forms";
     NbMenuModule,
     NbInputModule,
     NbButtonModule,
+    NbIconModule,
     NbUserModule,
     NbActionsModule,
+    NbCardModule,
+    NbStepperModule,
+    ReactiveFormsModule,
     AngularTelegramLoginWidgetModule,
   ],
-  declarations: [ProfileComponent],
+  declarations: [ProfileComponent, StepperComponent],
 })
 export class ProfileModule {}
