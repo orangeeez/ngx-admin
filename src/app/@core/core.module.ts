@@ -115,6 +115,16 @@ export const NB_CORE_PROVIDERS = [
           class: NbAuthJWTToken,
           key: "token",
         },
+        requestPass: {
+          endpoint: "forgot-password",
+        },
+        resetPass: {
+          endpoint: "reset-password",
+          method: "post",
+          redirect: {
+            success: "/auth/login",
+          },
+        },
       }),
     ],
     forms: {
@@ -124,6 +134,12 @@ export const NB_CORE_PROVIDERS = [
       },
       register: {
         socialLinks: socialLinks,
+      },
+      requestPassword: {
+        redirectDelay: 5000,
+      },
+      resetPassword: {
+        redirectDelay: 5000,
       },
       validation: {
         firstName: {
@@ -146,7 +162,7 @@ export const NB_CORE_PROVIDERS = [
         view: "*",
       },
       provider: {
-        parent: "user",
+        parent: "customer",
         create: "*",
         edit: "*",
         remove: "*",

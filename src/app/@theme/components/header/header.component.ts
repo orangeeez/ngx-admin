@@ -1,18 +1,15 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import {
-  NbMediaBreakpointsService,
   NbMenuItem,
   NbMenuService,
   NbSidebarService,
   NbThemeService,
 } from "@nebular/theme";
 
-import { UserData } from "../../../@core/data/users";
 import { LayoutService } from "../../../@core/utils";
 import { filter, map, takeUntil } from "rxjs/operators";
 import { Subject, Observable } from "rxjs";
-import { RippleService } from "../../../@core/utils/ripple.service";
-import { NbAuthResult, NbAuthService, NbAuthToken } from "@nebular/auth";
+import { NbAuthService, NbAuthToken, NbTokenService } from "@nebular/auth";
 import { Router } from "@angular/router";
 
 @Component({
@@ -69,10 +66,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private themeService: NbThemeService,
-    private userService: UserData,
     private layoutService: LayoutService,
-    private breakpointService: NbMediaBreakpointsService,
-    private rippleService: RippleService,
+    public tokenService: NbTokenService,
     private router: Router
   ) {}
 
@@ -139,8 +134,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onLogoutClick() {
-    this.authService.logout("email").subscribe((result: NbAuthResult) => {
-      if (result.isSuccess) this.router.navigate(["auth/login"]);
+    this.tokenService.clear().subscribe(() => {
+      this.router.navigate(["auth/login"]);
     });
   }
 

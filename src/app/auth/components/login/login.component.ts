@@ -36,6 +36,10 @@ export class LoginComponent extends NbLoginComponent implements AfterViewInit {
     router: Router
   ) {
     super(service, options, cd, router);
+
+    var state = this.router.getCurrentNavigation()?.extras?.state;
+    this.messages = state?.messages;
+    this.errors = state?.errors;
   }
 
   ngAfterViewInit(): void {
