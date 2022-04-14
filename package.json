@@ -17,6 +17,7 @@
     "start:postman": "npm run start -- -c postman",
     "build": "ng build",
     "build:prod": "npm run build -- --configuration production --aot --extract-css=false",
+    "build:docker": "docker build -t orangeeez/trainy_front:latest .",
     "test": "ng test",
     "test:coverage": "rimraf coverage && npm run test -- --code-coverage",
     "lint": "ng lint",
