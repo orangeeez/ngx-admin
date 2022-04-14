@@ -1,6 +1,6 @@
-@import '../../../@theme/styles/themes';
-@import '~@nebular/theme/styles/global/breakpoints';
-@import '~bootstrap/scss/mixins/breakpoints';
+@import "../../../@theme/styles/themes";
+@import "~@nebular/theme/styles/global/breakpoints";
+@import "~bootstrap/scss/mixins/breakpoints";
 
 @include nb-install-component() {
   .links {
@@ -18,5 +18,9 @@
 
   .another-action {
     margin-top: 1rem;
+  }
+
+  .text-link {
+    text-decoration: underline;
   }
 }

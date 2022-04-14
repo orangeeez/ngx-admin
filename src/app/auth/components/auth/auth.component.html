@@ -1,18 +1,36 @@
 <nb-layout>
   <nb-layout-column>
-    <nb-card>
-      <nb-card-header>
-        <nav class="navigation">
-          <!-- <a href="#" (click)="back()" class="link back-link" aria-label="Back">
-            <nb-icon icon="arrow-back"></nb-icon>
-          </a> -->
-        </nav>
-      </nb-card-header>
-      <nb-card-body>
-        <nb-auth-block>
-          <router-outlet></router-outlet>
-        </nb-auth-block>
-      </nb-card-body>
-    </nb-card>
+    <nb-flip-card [flipped]="flipped" [showToggleButton]="false">
+      <nb-card-front>
+        <nb-card>
+          <nb-card-header *ngIf="router.url === '/auth/register'">
+            <nb-button-group (valueChange)="roleChanged($event)" status="primary" ghost>
+              <button nbButtonToggle value="Customer" [pressed]="isCustomer">Customer</button>
+              <button nbButtonToggle value="Provider" [pressed]="isProvider">Provider</button>
+            </nb-button-group>
+          </nb-card-header>
+          <nb-card-body>
+            <nb-auth-block>
+              <router-outlet></router-outlet>
+            </nb-auth-block>
+          </nb-card-body>
+        </nb-card>
+      </nb-card-front>
+      <nb-card-back>
+        <nb-card>
+          <nb-card-header *ngIf="router.url === '/auth/register'">
+            <nb-button-group (valueChange)="roleChanged($event)" status="primary" ghost>
+              <button nbButtonToggle value="Customer" [pressed]="isCustomer">Customer</button>
+              <button nbButtonToggle value="Provider" [pressed]="isProvider">Provider</button>
+            </nb-button-group>
+          </nb-card-header>
+          <nb-card-body [style.overflow]="overflow">
+            <nb-auth-block>
+              <router-outlet name="register"></router-outlet>
+            </nb-auth-block>
+          </nb-card-body>
+        </nb-card>
+      </nb-card-back>
+    </nb-flip-card>
   </nb-layout-column>
 </nb-layout>

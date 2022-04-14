@@ -1,39 +1,44 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthComponent } from './components/auth/auth.component';
-import { LoginComponent } from './components/login/login.component';
-import { LogoutComponent } from './components/logout/logout.component';
-import { RegisterComponent } from './components/register/register.component';
-import { RequestPasswordComponent } from './components/request-password/request-password.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { AuthComponent } from "./components/auth/auth.component";
+import { LoginComponent } from "./components/login/login.component";
+import { LogoutComponent } from "./components/logout/logout.component";
+import { RegisterComponent } from "./components/register/register.component";
+import { RequestPasswordComponent } from "./components/request-password/request-password.component";
+import { ResetPasswordComponent } from "./components/reset-password/reset-password.component";
 
 export const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: AuthComponent,
     children: [
       {
-        path: '',
+        path: "",
         component: LoginComponent,
       },
       {
-        path: 'login',
+        path: "login",
         component: LoginComponent,
       },
       {
-        path: 'register',
+        path: "register",
         component: RegisterComponent,
       },
       {
-        path: 'logout',
+        path: "",
+        component: RegisterComponent,
+        outlet: "register",
+      },
+      {
+        path: "logout",
         component: LogoutComponent,
       },
       {
-        path: 'reset-password',
+        path: "reset-password",
         component: ResetPasswordComponent,
       },
       {
-        path: 'request-password',
+        path: "request-password",
         component: RequestPasswordComponent,
       },
     ],

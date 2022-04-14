@@ -31,6 +31,16 @@
 
   nb-card-header {
     border-bottom: none;
+
+    nb-button-group {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    button {
+      font-size: 1rem;
+    }
   }
 
   nb-auth-block {

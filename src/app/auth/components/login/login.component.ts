@@ -13,6 +13,7 @@ import {
   NB_AUTH_OPTIONS,
 } from "@nebular/auth";
 import { NbGlobalPhysicalPosition, NbToastrService } from "@nebular/theme";
+import { StateService } from "../../../@core/utils";
 import { TELEGRAM_BOT_OPTIONS } from "../../auth.options";
 import { AuthService } from "../../services/auth.service";
 
@@ -32,6 +33,7 @@ export class LoginComponent extends NbLoginComponent implements AfterViewInit {
     private toastrService: NbToastrService,
     public tokenService: NbTokenService,
     public service: AuthService,
+    public stateService: StateService,
     cd: ChangeDetectorRef,
     router: Router
   ) {

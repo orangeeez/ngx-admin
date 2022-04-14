@@ -7,6 +7,7 @@ import { NgxAuthRoutingModule } from "./auth-routing.module";
 import { NbAuthModule } from "@nebular/auth";
 import {
   NbAlertModule,
+  NbButtonGroupModule,
   NbButtonModule,
   NbCardModule,
   NbCheckboxModule,
@@ -36,6 +37,7 @@ import { AngularTelegramLoginWidgetModule } from "angular-telegram-login-widget"
     NbCardModule,
     NbLayoutModule,
     NbIconModule,
+    NbButtonGroupModule,
     NgxAuthRoutingModule,
     AngularTelegramLoginWidgetModule,
   ],
