@@ -11,7 +11,7 @@ import { StateService } from "../../../@core/utils";
 })
 export class AuthComponent extends NbAuthComponent {
   flipped: boolean = false;
-  role: string = "Customer";
+  role: string = "customer";
 
   constructor(
     protected auth: NbAuthService,
@@ -46,10 +46,10 @@ export class AuthComponent extends NbAuthComponent {
   }
 
   get isProvider() {
-    return this.role === "Provider";
+    return this.role === "provider";
   }
 
   get isCustomer() {
-    return this.role === "Customer";
+    return this.role === "customer";
   }
 }

@@ -5,8 +5,8 @@
         <nb-card>
           <nb-card-header *ngIf="router.url === '/auth/register'">
             <nb-button-group (valueChange)="roleChanged($event)" status="primary" ghost>
-              <button nbButtonToggle value="Customer" [pressed]="isCustomer">Customer</button>
-              <button nbButtonToggle value="Provider" [pressed]="isProvider">Provider</button>
+              <button nbButtonToggle value="customer" [pressed]="isCustomer">Customer</button>
+              <button nbButtonToggle value="provider" [pressed]="isProvider">Provider</button>
             </nb-button-group>
           </nb-card-header>
           <nb-card-body>
@@ -20,8 +20,8 @@
         <nb-card>
           <nb-card-header *ngIf="router.url === '/auth/register'">
             <nb-button-group (valueChange)="roleChanged($event)" status="primary" ghost>
-              <button nbButtonToggle value="Customer" [pressed]="isCustomer">Customer</button>
-              <button nbButtonToggle value="Provider" [pressed]="isProvider">Provider</button>
+              <button nbButtonToggle value="customer" [pressed]="isCustomer">Customer</button>
+              <button nbButtonToggle value="provider" [pressed]="isProvider">Provider</button>
             </nb-button-group>
           </nb-card-header>
           <nb-card-body [style.overflow]="overflow">
