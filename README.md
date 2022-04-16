@@ -13,10 +13,7 @@ Via **trainy**:
 
 Via **Docker Hub**:
 - `docker pull orangeeez/trainy_front:latest`
-- `docker run -d --rm \  
--v ${PWD}/dev/nginx-front.conf:/etc/nginx/nginx.conf \  
--p 4200:80 \  
---name trainy_front orangeeez/trainy_front:latest` 
+- `docker run -d --rm -v ${PWD}/dev/nginx-front.conf:/etc/nginx/nginx.conf -p 4200:80 --name trainy_front orangeeez/trainy_front:latest` 
 
 _**Linux**: $(pwd)_  
 _**CMD**: %cd%_  
