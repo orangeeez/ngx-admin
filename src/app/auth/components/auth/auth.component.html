@@ -4,10 +4,25 @@
       <nb-card-front>
         <nb-card>
           <nb-card-header *ngIf="router.url === '/auth/register'">
-            <nb-button-group (valueChange)="roleChanged($event)" status="primary" ghost>
-              <button nbButtonToggle value="customer" [pressed]="isCustomer">Customer</button>
-              <button nbButtonToggle value="provider" [pressed]="isProvider">Provider</button>
+            <nb-button-group
+              (valueChange)="roleChanged($event)"
+              status="primary"
+              ghost>
+              <button nbButtonToggle value="customer" [pressed]="isCustomer">
+                {{ "auth.common.customer" | translate }}
+              </button>
+              <button nbButtonToggle value="provider" [pressed]="isProvider">
+                {{ "auth.common.provider" | translate }}
+              </button>
             </nb-button-group>
+          </nb-card-header>
+          <nb-card-header *ngIf="router.url === '/auth/login'">
+            <nb-actions size="medium">
+              <nb-action
+                icon="globe-2-outline"
+                nbContextMenuTag="language-menu"
+                [nbContextMenu]="LANGUAGE_MENU"></nb-action>
+            </nb-actions>
           </nb-card-header>
           <nb-card-body>
             <nb-auth-block>
@@ -19,9 +34,16 @@
       <nb-card-back>
         <nb-card>
           <nb-card-header *ngIf="router.url === '/auth/register'">
-            <nb-button-group (valueChange)="roleChanged($event)" status="primary" ghost>
-              <button nbButtonToggle value="customer" [pressed]="isCustomer">Customer</button>
-              <button nbButtonToggle value="provider" [pressed]="isProvider">Provider</button>
+            <nb-button-group
+              (valueChange)="roleChanged($event)"
+              status="primary"
+              ghost>
+              <button nbButtonToggle value="customer" [pressed]="isCustomer">
+                {{ "auth.common.customer" | translate }}
+              </button>
+              <button nbButtonToggle value="provider" [pressed]="isProvider">
+                {{ "auth.common.provider" | translate }}
+              </button>
             </nb-button-group>
           </nb-card-header>
           <nb-card-body [style.overflow]="overflow">

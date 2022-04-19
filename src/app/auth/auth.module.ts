@@ -6,11 +6,13 @@ import { RouterModule } from "@angular/router";
 import { NgxAuthRoutingModule } from "./auth-routing.module";
 import { NbAuthModule } from "@nebular/auth";
 import {
+  NbActionsModule,
   NbAlertModule,
   NbButtonGroupModule,
   NbButtonModule,
   NbCardModule,
   NbCheckboxModule,
+  NbContextMenuModule,
   NbIconModule,
   NbInputModule,
   NbLayoutModule,
@@ -23,6 +25,7 @@ import { RequestPasswordComponent } from "./components/request-password/request-
 import { AuthComponent } from "./components/auth/auth.component";
 import { AuthService } from "./services/auth.service";
 import { AngularTelegramLoginWidgetModule } from "angular-telegram-login-widget";
+import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   imports: [
@@ -40,6 +43,9 @@ import { AngularTelegramLoginWidgetModule } from "angular-telegram-login-widget"
     NbButtonGroupModule,
     NgxAuthRoutingModule,
     AngularTelegramLoginWidgetModule,
+    TranslateModule,
+    NbActionsModule,
+    NbContextMenuModule,
   ],
   declarations: [
     LoginComponent,

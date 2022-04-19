@@ -6,11 +6,7 @@ import {
 } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from "@angular/material/core";
-import {
-  NbAuthModule,
-  NbPasswordAuthStrategy,
-  NbAuthJWTToken,
-} from "@nebular/auth";
+import { NbAuthModule, NbAuthJWTToken } from "@nebular/auth";
 import { NbSecurityModule, NbRoleProvider } from "@nebular/security";
 import { throwIfAlreadyLoaded } from "./module-import-guard";
 import {
@@ -66,6 +62,7 @@ import { RoleProvider } from "../security/role.provider";
 import { NgxPasswordAuthStrategy } from "../auth/strategies/password-strategy";
 import { TELEGRAM_BOT_OPTIONS } from "../auth/auth.options";
 import { environment } from "../../environments/environment";
+import { LanguageService } from "./utils/language.service";
 
 const socialLinks = [
   {
@@ -185,6 +182,7 @@ export const NB_CORE_PROVIDERS = [
   PlayerService,
   SeoService,
   StateService,
+  LanguageService,
   NgxPasswordAuthStrategy,
 ];
 

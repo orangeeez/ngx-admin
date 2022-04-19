@@ -1,4 +1,4 @@
-<h1 id="title" class="title">Login</h1>
+<h1 id="title" class="title">{{ "auth.login.combined_value" | translate }}</h1>
 <!-- <p class="sub-title">Hello! Log in with your email.</p> -->
 
 <nb-alert
@@ -25,7 +25,9 @@
 
 <form (ngSubmit)="login()" #form="ngForm" aria-labelledby="title">
   <div class="form-control-group">
-    <label class="label" for="input-email">Email address</label>
+    <label class="label" for="input-email">{{
+      "auth.common.email.value" | translate
+    }}</label>
     <input
       nbInput
       fullWidth
@@ -34,7 +36,7 @@
       name="email"
       id="input-email"
       pattern=".+@.+\..+"
-      placeholder="Email address"
+      [placeholder]="'auth.common.email.value' | translate"
       fieldSize="large"
       autofocus
       [status]="email.dirty ? (email.invalid ? 'danger' : 'success') : 'basic'"
@@ -42,20 +44,22 @@
       [attr.aria-invalid]="email.invalid && email.touched ? true : null" />
     <ng-container *ngIf="email.invalid && email.touched">
       <p class="caption status-danger" *ngIf="email.errors?.required">
-        Email is required
+        {{ "auth.common.email.required" | translate }}
       </p>
       <p class="caption status-danger" *ngIf="email.errors?.pattern">
-        Email should be the real one
+        {{ "auth.common.email.real_one" | translate }}
       </p>
     </ng-container>
   </div>
 
   <div class="form-control-group">
     <span class="label-with-link">
-      <label class="label" for="input-password">Password</label>
-      <a class="forgot-password caption-2" routerLink="../request-password"
-        >Forgot Password?</a
-      >
+      <label class="label" for="input-password">{{
+        "auth.common.password.value" | translate
+      }}</label>
+      <a class="forgot-password caption-2" routerLink="../request-password">{{
+        "auth.common.password.forgot" | translate
+      }}</a>
     </span>
     <input
       nbInput
@@ -65,7 +69,7 @@
       name="password"
       type="password"
       id="input-password"
-      placeholder="Password"
+      [placeholder]="'auth.common.password.value' | translate"
       fieldSize="large"
       [status]="
         password.dirty ? (password.invalid ? 'danger' : 'success') : 'basic'
@@ -78,15 +82,19 @@
       " />
     <ng-container *ngIf="password.invalid && password.touched">
       <p class="caption status-danger" *ngIf="password.errors?.required">
-        Password is required
+        {{ "auth.common.password.required" | translate }}
       </p>
       <p
         class="caption status-danger"
         *ngIf="password.errors?.minlength || password.errors?.maxlength">
-        Password should contain from
-        {{ getConfigValue("forms.validation.password.minLength") }} to
-        {{ getConfigValue("forms.validation.password.maxLength") }}
-        characters
+        {{
+          "auth.common.password.contain"
+            | translate
+              : {
+                  from: getConfigValue("forms.validation.password.minLength"),
+                  to: getConfigValue("forms.validation.password.maxLength")
+                }
+        }}
       </p>
     </ng-container>
   </div>
@@ -96,7 +104,7 @@
       name="rememberMe"
       [(ngModel)]="user.rememberMe"
       *ngIf="rememberMe"
-      >Remember me</nb-checkbox
+      >{{ "auth.login.remember" | translate }}</nb-checkbox
     >
   </div>
 
@@ -107,7 +115,7 @@
     size="large"
     [disabled]="submitted || !form.valid"
     [class.btn-pulse]="submitted">
-    Log In
+    {{ "auth.login.value" | translate }}
   </button>
 </form>
 
@@ -115,7 +123,7 @@
   *ngIf="socialLinks && socialLinks.length > 0"
   class="links"
   aria-label="Social sign in">
-  or
+  {{ "auth.login.or" | translate }}
   <div class="socials">
     <angular-telegram-login-widget
       (load)="onLoad()"
@@ -125,7 +133,11 @@
   </div>
 </section>
 
-<section class="another-action" aria-label="Register">
-  Don't have an account?
-  <a class="text-link" routerLink="../register">Register</a>
+<section
+  class="another-action"
+  [attr.aria-label]="'auth.register.value' | translate">
+  {{ "auth.login.no_account" | translate }}
+  <a class="text-link" routerLink="../register">{{
+    "auth.register.value" | translate
+  }}</a>
 </section>

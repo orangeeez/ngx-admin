@@ -11,6 +11,7 @@ import { filter, map, takeUntil } from "rxjs/operators";
 import { Subject, Observable } from "rxjs";
 import { NbAuthService, NbAuthToken, NbTokenService } from "@nebular/auth";
 import { Router } from "@angular/router";
+import { LanguageService } from "../../../@core/utils/language.service";
 
 @Component({
   selector: "ngx-header",
@@ -20,6 +21,7 @@ import { Router } from "@angular/router";
 export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   public readonly materialTheme$: Observable<boolean>;
+  LANGUAGE_MENU = [];
   userPictureOnly: boolean = true;
   isThemeChecked: boolean;
   user: any;
@@ -68,6 +70,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private themeService: NbThemeService,
     private layoutService: LayoutService,
     public tokenService: NbTokenService,
+    private languageService: LanguageService,
     private router: Router
   ) {}
 
@@ -99,6 +102,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
         map(({ item: item }) => item)
       )
       .subscribe((item) => this.onContextMenuClick(item));
+
+    this.menuService
+      .onItemClick()
+      .pipe(
+        filter(({ tag }) => tag === "language-menu"),
+        map(({ item: item }) => item)
+      )
+      .subscribe((item) => this.languageService.onLanguageMenuClick(item));
+
+    this.languageService.onMenuChanged().subscribe((menu) => {
+      this.LANGUAGE_MENU = menu;
+    });
   }
 
   ngOnDestroy() {
@@ -139,7 +154,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  private onContextMenuClick(item: NbMenuItem) {
+  onContextMenuClick(item: NbMenuItem) {
     switch (item.data) {
       case "profile":
         this.onProfileClick(item);

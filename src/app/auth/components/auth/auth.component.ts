@@ -2,7 +2,10 @@ import { Location } from "@angular/common";
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { NbAuthComponent, NbAuthService } from "@nebular/auth";
+import { NbMenuService } from "@nebular/theme";
+import { filter, map } from "rxjs/operators";
 import { StateService } from "../../../@core/utils";
+import { LanguageService } from "../../../@core/utils/language.service";
 
 @Component({
   selector: "ngx-auth",
@@ -10,6 +13,7 @@ import { StateService } from "../../../@core/utils";
   styleUrls: ["./auth.component.scss"],
 })
 export class AuthComponent extends NbAuthComponent {
+  LANGUAGE_MENU = [];
   flipped: boolean = false;
   role: string = "customer";
 
@@ -17,7 +21,9 @@ export class AuthComponent extends NbAuthComponent {
     protected auth: NbAuthService,
     protected location: Location,
     public router: Router,
-    public stateService: StateService
+    public stateService: StateService,
+    public languageService: LanguageService,
+    public menuService: NbMenuService
   ) {
     super(auth, location);
 
@@ -31,6 +37,18 @@ export class AuthComponent extends NbAuthComponent {
     this.stateService.registerFlipped$.subscribe(() => {
       if (this.isProvider) this.flip();
     });
+
+    this.languageService.onMenuChanged().subscribe((menu) => {
+      this.LANGUAGE_MENU = menu;
+    });
+
+    this.menuService
+      .onItemClick()
+      .pipe(
+        filter(({ tag }) => tag === "language-menu"),
+        map(({ item: item }) => item)
+      )
+      .subscribe((item) => this.languageService.onLanguageMenuClick(item));
   }
 
   get overflow() {

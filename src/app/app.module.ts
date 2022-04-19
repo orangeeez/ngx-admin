@@ -6,7 +6,11 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+} from "@angular/common/http";
 import { CoreModule } from "./@core/core.module";
 import { ThemeModule } from "./@theme/theme.module";
 import { AppComponent } from "./app.component";
@@ -22,6 +26,9 @@ import {
 } from "@nebular/theme";
 import { AuthGuard } from "./auth-guard.service";
 import { TokenInterceptorService } from "./@core/interceptors/token-interceptor.service";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { LanguageInterceptorService } from "./@core/interceptors/language-interceptor.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,6 +48,13 @@ import { TokenInterceptorService } from "./@core/interceptors/token-interceptor.
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   bootstrap: [AppComponent],
   providers: [
@@ -50,6 +64,15 @@ import { TokenInterceptorService } from "./@core/interceptors/token-interceptor.
       useClass: TokenInterceptorService,
       multi: true,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LanguageInterceptorService,
+      multi: true,
+    },
   ],
 })
 export class AppModule {}
+
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
+}
