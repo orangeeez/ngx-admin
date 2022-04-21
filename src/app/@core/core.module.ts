@@ -112,8 +112,26 @@ export const NB_CORE_PROVIDERS = [
           class: NbAuthJWTToken,
           key: "token",
         },
+        login: {
+          defaultErrors: ["auth.common.errors.smth_wrong"],
+          defaultMessages: ["auth.common.messages.success_login"],
+        },
+        register: {
+          defaultErrors: ["auth.common.errors.smth_wrong"],
+          defaultMessages: ["auth.common.messages.success_register"],
+        },
+        logout: {
+          defaultErrors: ["auth.common.errors.smth_wrong"],
+          defaultMessages: ["auth.common.messages.logout"],
+        },
+        refreshToken: {
+          defaultErrors: ["auth.common.errors.smth_wrong"],
+          defaultMessages: ["auth.common.messages.refresh_token"],
+        },
         requestPass: {
           endpoint: "forgot-password",
+          defaultErrors: ["auth.common.errors.smth_wrong"],
+          defaultMessages: ["auth.common.messages.request_password"],
         },
         resetPass: {
           endpoint: "reset-password",
@@ -121,6 +139,8 @@ export const NB_CORE_PROVIDERS = [
           redirect: {
             success: "/auth/login",
           },
+          defaultErrors: ["auth.common.errors.smth_wrong"],
+          defaultMessages: ["auth.common.messages.reset_password"],
         },
       }),
     ],

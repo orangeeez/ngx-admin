@@ -16,7 +16,7 @@
               </button>
             </nb-button-group>
           </nb-card-header>
-          <nb-card-header *ngIf="router.url === '/auth/login'">
+          <nb-card-header *ngIf="router.url !== '/auth/register'">
             <nb-actions size="medium">
               <nb-action
                 icon="globe-2-outline"
