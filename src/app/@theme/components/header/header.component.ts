@@ -8,7 +8,7 @@ import {
 
 import { LayoutService } from "../../../@core/utils";
 import { filter, map, takeUntil } from "rxjs/operators";
-import { Subject, Observable } from "rxjs";
+import { Subject, Observable, combineLatest } from "rxjs";
 import { NbAuthService, NbAuthToken, NbTokenService } from "@nebular/auth";
 import { Router } from "@angular/router";
 import { LanguageService } from "../../../@core/utils/language.service";
@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   public readonly materialTheme$: Observable<boolean>;
   LANGUAGE_MENU = [];
+  USER_MENU = [];
   userPictureOnly: boolean = true;
   isThemeChecked: boolean;
   user: any;
@@ -53,16 +54,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     },
   ];
 
-  userMenu = [
-    {
-      title: "Profile",
-      data: "profile",
-      link: "profile",
-      icon: "person-outline",
-    },
-    { title: "Log out", data: "logout", icon: "log-out-outline" },
-  ];
-
   public constructor(
     private authService: NbAuthService,
     private sidebarService: NbSidebarService,
@@ -70,7 +61,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private themeService: NbThemeService,
     private layoutService: LayoutService,
     public tokenService: NbTokenService,
-    private languageService: LanguageService,
+    public languageService: LanguageService,
     private router: Router
   ) {}
 
@@ -111,8 +102,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       )
       .subscribe((item) => this.languageService.onLanguageMenuClick(item));
 
-    this.languageService.onMenuChanged().subscribe((menu) => {
-      this.LANGUAGE_MENU = menu;
+    this.languageService.onLanguageChanged().subscribe((language) => {
+      this.LANGUAGE_MENU = language;
+    });
+
+    this.languageService.onUserMenuChanged().subscribe((menu) => {
+      this.USER_MENU = menu;
     });
   }
 

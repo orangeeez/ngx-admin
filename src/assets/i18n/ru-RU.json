@@ -43,6 +43,17 @@
 	"auth.request.password": "Запросить пароль",
 	"auth.request.send_link": "Введите свой адрес электронной почты, и мы вышлем ссылку для сброса",
 	"auth.reset.new_password": "Новый пароль",
+	"auth.toast.email_confirmation": "Подтверждение электронной почты",
+	"auth.toast.email_confirmed": "{{email}} успешно подтвержден",
+	"auth.toast.email_not_confirmed": "{{email}} не подтвержден",
+	"header.user_menu.logout": "Выйти",
+	"header.user_menu.profile": "Профиль",
 	"language.english": "Английский",
-	"language.russian": "Русский"
+	"language.russian": "Русский",
+	"profile.stepper.completed": "Завершено",
+	"profile.stepper.link": "Связать",
+	"profile.stepper.link_email": "Электронная почта",
+	"profile.stepper.link_telegram": "Телеграм",
+	"profile.stepper.link_your_email": "Свяжите свою электронную почту",
+	"profile.stepper.wizard_completed": "Завершено!"
 }

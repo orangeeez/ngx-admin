@@ -13,6 +13,7 @@ import {
   NB_AUTH_OPTIONS,
 } from "@nebular/auth";
 import { NbGlobalPhysicalPosition, NbToastrService } from "@nebular/theme";
+import { TranslateService } from "@ngx-translate/core";
 import { StateService } from "../../../@core/utils";
 import { TELEGRAM_BOT_OPTIONS } from "../../auth.options";
 import { AuthService } from "../../services/auth.service";
@@ -34,6 +35,7 @@ export class LoginComponent extends NbLoginComponent implements AfterViewInit {
     public tokenService: NbTokenService,
     public service: AuthService,
     public stateService: StateService,
+    public translate: TranslateService,
     cd: ChangeDetectorRef,
     router: Router
   ) {
@@ -49,15 +51,25 @@ export class LoginComponent extends NbLoginComponent implements AfterViewInit {
       if (!queryParams) return;
 
       if (queryParams.email) {
-        var message = !queryParams.confirmed
-          ? `${queryParams.email} was successfully confirmed`
-          : `${queryParams.email} wasn't confirmed`;
+        setTimeout(() => {
+          var message = queryParams.confirmed
+            ? this.translate.instant("auth.toast.email_confirmed", {
+                email: queryParams.email,
+              })
+            : this.translate.instant("auth.toast.email_not_confirmed", {
+                email: queryParams.email,
+              });
 
-        this.toastrService.show(message, `Email confirmation`, {
-          position: NbGlobalPhysicalPosition.BOTTOM_RIGHT,
-          status: !queryParams.confirmed ? "success" : "danger",
-          duration: 5000,
-        });
+          this.toastrService.show(
+            message,
+            this.translate.instant("auth.toast.email_confirmation"),
+            {
+              position: NbGlobalPhysicalPosition.BOTTOM_RIGHT,
+              status: queryParams.confirmed ? "success" : "danger",
+              duration: 5000,
+            }
+          );
+        }, 2000);
       }
     });
   }

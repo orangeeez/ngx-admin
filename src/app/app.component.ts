@@ -14,6 +14,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { Subject } from "rxjs";
 import { map, takeUntil } from "rxjs/operators";
 import { AnalyticsService } from "./@core/utils/analytics.service";
+import { LanguageService } from "./@core/utils/language.service";
 import { SeoService } from "./@core/utils/seo.service";
 
 @Component({
@@ -28,9 +29,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private seoService: SeoService,
     private iconsLibrary: NbIconLibraries,
     private themeService: NbThemeService,
-    private translate: TranslateService
+    private languageService: LanguageService
   ) {
-    this.translate.setDefaultLang(this.getLanguage());
+    this.languageService.setLanguage();
 
     iconsLibrary.registerFontPack("fa", {
       packClass: "fa",
@@ -83,9 +84,5 @@ export class AppComponent implements OnInit, OnDestroy {
           this.themeService.changeTheme(currentTheme);
         }
       });
-  }
-
-  getLanguage() {
-    return localStorage.getItem("language") || navigator.language || "en-US";
   }
 }

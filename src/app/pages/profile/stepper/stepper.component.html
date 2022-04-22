@@ -9,7 +9,7 @@
           <nb-step
             *ngIf="!user.email"
             [stepControl]="emailForm"
-            label="Link email">
+            [label]="'profile.stepper.link_email' | translate">
             <form
               [formGroup]="emailForm"
               (ngSubmit)="onEmailSubmit()"
@@ -19,19 +19,19 @@
                   nbInput
                   fullWidth
                   pattern=".+@.+\..+"
-                  placeholder="Link your email"
+                  [placeholder]="'profile.stepper.link_your_email' | translate"
                   class="form-control"
                   formControlName="email" />
                 <ng-container *ngIf="email.invalid && email.touched">
                   <p
                     class="caption status-danger"
                     *ngIf="email.errors?.required">
-                    Email is required
+                    {{ "auth.common.email.required" | translate }}
                   </p>
                   <p
                     class="caption status-danger"
                     *ngIf="email.errors?.pattern">
-                    Email should be the real one
+                    {{ "auth.common.email.real_one" | translate }}
                   </p>
                 </ng-container>
               </div>
@@ -39,14 +39,14 @@
                 nbButton
                 status="primary"
                 [disabled]="email.invalid || email.untouched">
-                Link
+                {{ "profile.stepper.link" | translate }}
               </button>
             </form>
           </nb-step>
           <nb-step
             *ngIf="!user.tg_username"
             [stepControl]="telegramForm"
-            label="Telegram link">
+            [label]="'profile.stepper.link_telegram' | translate">
             <form [formGroup]="telegramForm" class="step-container">
               <angular-telegram-login-widget
                 (load)="onLoad()"
@@ -58,9 +58,9 @@
           <nb-step
             [stepControl]="completedForm"
             [hidden]="true"
-            label="Completed">
+            [label]="'profile.stepper.completed' | translate">
             <div class="step-container">
-              <h3>Wizard completed!</h3>
+              <h3>{{ "profile.stepper.wizard_completed" | translate }}</h3>
             </div>
           </nb-step>
         </nb-stepper>

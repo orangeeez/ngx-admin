@@ -1,6 +1,6 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatRippleModule } from '@angular/material/core';
+import { ModuleWithProviders, NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MatRippleModule } from "@angular/material/core";
 import {
   NbActionsModule,
   NbLayoutModule,
@@ -14,34 +14,37 @@ import {
   NbIconModule,
   NbThemeModule,
   NbToggleModule,
-} from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { NbSecurityModule } from '@nebular/security';
+} from "@nebular/theme";
+import { NbEvaIconsModule } from "@nebular/eva-icons";
+import { NbSecurityModule } from "@nebular/security";
 
 import {
   FooterComponent,
   HeaderComponent,
   SearchInputComponent,
   TinyMCEComponent,
-} from './components';
+} from "./components";
 import {
   CapitalizePipe,
   PluralPipe,
   RoundPipe,
   TimingPipe,
   NumberWithCommasPipe,
-} from './pipes';
+} from "./pipes";
 import {
   OneColumnLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
-} from './layouts';
-import { DEFAULT_THEME } from './styles/theme.default';
-import { COSMIC_THEME } from './styles/theme.cosmic';
-import { CORPORATE_THEME } from './styles/theme.corporate';
-import { DARK_THEME } from './styles/theme.dark';
-import { MATERIAL_LIGHT_THEME } from './styles/material/theme.material-light';
-import { MATERIAL_DARK_THEME } from './styles/material/theme.material-dark';
+} from "./layouts";
+import { DEFAULT_THEME } from "./styles/theme.default";
+import { COSMIC_THEME } from "./styles/theme.cosmic";
+import { CORPORATE_THEME } from "./styles/theme.corporate";
+import { DARK_THEME } from "./styles/theme.dark";
+import { MATERIAL_LIGHT_THEME } from "./styles/material/theme.material-light";
+import { MATERIAL_DARK_THEME } from "./styles/material/theme.material-dark";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { HttpClient } from "@angular/common/http";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -56,7 +59,7 @@ const NB_MODULES = [
   NbSelectModule,
   NbIconModule,
   NbEvaIconsModule,
-  NbToggleModule
+  NbToggleModule,
 ];
 const COMPONENTS = [
   HeaderComponent,
@@ -87,9 +90,16 @@ export class ThemeModule {
       providers: [
         ...NbThemeModule.forRoot(
           {
-            name: 'default',
+            name: "default",
           },
-          [ DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, DARK_THEME, MATERIAL_LIGHT_THEME, MATERIAL_DARK_THEME ],
+          [
+            DEFAULT_THEME,
+            COSMIC_THEME,
+            CORPORATE_THEME,
+            DARK_THEME,
+            MATERIAL_LIGHT_THEME,
+            MATERIAL_DARK_THEME,
+          ]
         ).providers,
       ],
     };

@@ -54,6 +54,7 @@ import { LanguageInterceptorService } from "./@core/interceptors/language-interc
         useFactory: HttpLoaderFactory,
         deps: [HttpClient],
       },
+      isolate: false,
     }),
   ],
   bootstrap: [AppComponent],

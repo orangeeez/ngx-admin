@@ -1,5 +1,5 @@
 import { Location } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { NbAuthComponent, NbAuthService } from "@nebular/auth";
 import { NbMenuService } from "@nebular/theme";
@@ -38,8 +38,8 @@ export class AuthComponent extends NbAuthComponent {
       if (this.isProvider) this.flip();
     });
 
-    this.languageService.onMenuChanged().subscribe((menu) => {
-      this.LANGUAGE_MENU = menu;
+    this.languageService.onLanguageChanged().subscribe((language) => {
+      this.LANGUAGE_MENU = language;
     });
 
     this.menuService

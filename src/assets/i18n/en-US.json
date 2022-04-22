@@ -43,6 +43,17 @@
 	"auth.request.password": "Request password",
 	"auth.request.send_link": "Enter your email address and we’ll send a link to reset your password",
 	"auth.reset.new_password": "New Password",
+	"auth.toast.email_confirmation": "Email confirmation",
+	"auth.toast.email_confirmed": "{{email}} was successfully confirmed",
+	"auth.toast.email_not_confirmed": "{{email}} wasn't confirmed",
+	"header.user_menu.logout": "Log out",
+	"header.user_menu.profile": "Profile",
 	"language.english": "English",
-	"language.russian": "Russian"
+	"language.russian": "Russian",
+	"profile.stepper.completed": "Completed",
+	"profile.stepper.link": "Link",
+	"profile.stepper.link_email": "Link email",
+	"profile.stepper.link_telegram": "Link Telegram",
+	"profile.stepper.link_your_email": "Link your email",
+	"profile.stepper.wizard_completed": "Wizard completed!"
 }

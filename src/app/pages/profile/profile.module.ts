@@ -16,6 +16,9 @@ import {
 import { AngularTelegramLoginWidgetModule } from "angular-telegram-login-widget";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { StepperComponent } from "./stepper/stepper.component";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { HttpClient } from "@angular/common/http";
+import { HttpLoaderFactory } from "../../app.module";
 
 @NgModule({
   imports: [
@@ -33,6 +36,14 @@ import { StepperComponent } from "./stepper/stepper.component";
     NbStepperModule,
     ReactiveFormsModule,
     AngularTelegramLoginWidgetModule,
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+      extend: true,
+    }),
   ],
   declarations: [ProfileComponent, StepperComponent],
 })
