@@ -102,13 +102,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       )
       .subscribe((item) => this.languageService.onLanguageMenuClick(item));
 
-    this.languageService.onLanguageChanged().subscribe((language) => {
-      this.LANGUAGE_MENU = language;
-    });
-
-    this.languageService.onUserMenuChanged().subscribe((menu) => {
-      this.USER_MENU = menu;
-    });
+    this.languageService
+      .onLanguageChanged()
+      .subscribe((language) => (this.LANGUAGE_MENU = language));
+    this.languageService
+      .onUserMenuChanged()
+      .subscribe((menu) => (this.USER_MENU = menu));
   }
 
   ngOnDestroy() {
